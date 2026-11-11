@@ -230,6 +230,7 @@ python3 scripts/qc_check.py --file <文件> --brief references/mock/mock-fact-ca
 | 6 | 对 V3 跑质检 | 输出 BLOCK／WARN／PASS 与命中位置，不空口说「已质检」 |
 
 ```bash
+python3 scripts/selftest.py                                          # 一条命令跑完 7 项检查，期望 7/7 通过
 python3 scripts/intent_score.py --eval references/intent-cases.jsonl   # 期望准确率 100%
 ```
 
