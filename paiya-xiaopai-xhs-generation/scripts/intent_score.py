@@ -73,6 +73,10 @@ EVALUATE_PATTERNS = [
 CHAT_PATTERNS = [r"^你好", r"^在吗", r"谢谢", r"天气", r"随便聊", r"哈喽", r"早上好", r"晚安"]
 EXIT_PATTERNS = [r"不用写", r"先不生成", r"算了", r"不需要", r"停止生成"]
 SCOPE_PATTERNS = [r"抖音", r"视频脚本", r"短视频", r"分镜", r"直播话术", r"口播稿"]
+VIDEO_TERMS = ["视频脚本", "短视频", "分镜", "口播稿", "拍摄脚本", "镜头", "竖屏", "成片", "剪辑"]
+ARTICLE_TERMS = ["图文", "笔记", "封面", "话题", "标签", "种草文"]
+PLATFORM_XHS_TERMS = ["小红书", "红书", "xhs"]
+PLATFORM_DOUYIN_TERMS = ["抖音", "douyin", "Douyin"]
 REWRITE_MARKERS = [r"改", r"换", r"调整", r"润色", r"加", r"删", r"重写"]
 REFERENCE_MARKERS = [r"第一版", r"第二版", r"第三版", r"这版", r"那版", r"刚才", r"上面", r"V1", r"V2", r"V3", r"第[一二三]个"]
 
@@ -194,6 +198,28 @@ def score(text, has_attachment=False, in_flow=False, entities=None, force_commer
     }
 
 
+def detect_modality(text):
+    """判断用户要的是图文笔记还是视频脚本，以及是否说不清。"""
+    has_douyin = any(k in text for k in PLATFORM_DOUYIN_TERMS)
+    has_xhs = any(k in text for k in PLATFORM_XHS_TERMS)
+    has_video = any(k in text for k in VIDEO_TERMS)
+    has_article = any(k in text for k in ARTICLE_TERMS)
+
+    if has_douyin:
+        return "video", "抖音"
+    if has_xhs and has_video:
+        return "video", "小红书"
+    if has_xhs:
+        return "article", "小红书"
+    if has_video and has_article:
+        return "ambiguous", ""
+    if has_video:
+        return "video", "抖音"
+    if has_article:
+        return "article", "小红书"
+    return "unspecified", ""
+
+
 def decide(text, result, in_flow=False):
     notes = []
     if in_flow:
@@ -204,11 +230,6 @@ def decide(text, result, in_flow=False):
 
     if hits(EXIT_PATTERNS, text):
         return "exit", None, ["命中显式拒绝对话"]
-
-    scope = hits(SCOPE_PATTERNS, text)
-    if scope:
-        notes.append("命中范围不符信号（本期只支持小红书图文笔记）")
-        return "scope_mismatch", None, notes
 
     if hits(EVALUATE_PATTERNS, text) and not HAS_VERB.search(text):
         notes.append("评估诉求前置，只做评估")
@@ -263,18 +284,37 @@ def main():
         force_commercial=args.commercial,
     )
     intent, llm_check, notes = decide(args.text, result, in_flow=args.in_flow)
+    modality, platform = detect_modality(args.text)
+
+    # 形态路由：只有要「生成/待确认」的请求才需要分图文还是视频
+    if intent in ("generate", "llm_check"):
+        if modality == "video":
+            intent = "handoff_video"
+            notes.append(f"识别为视频脚本（{platform or '平台未写明'}），转交抖音视频技能")
+        elif modality == "ambiguous":
+            intent = "confirm_modality"
+            notes.append("图文与视频信号同时出现，需向用户确认走哪条分支")
+        elif modality == "unspecified":
+            intent = "confirm_modality"
+            notes.append("看不出要图文还是视频，需向用户确认一次")
+
     mode = "商单" if result["has_brief"] else "日常"
-    if intent == "scope_mismatch":
-        mode = "不支持"
+    if intent == "handoff_video":
+        mode = "视频"
+    elif intent == "confirm_modality":
+        mode = "待确认"
 
     output = {
         "text": args.text,
         "intent": intent,
         "mode": mode,
+        "modality": modality,
+        "platform": platform,
         "score": result["score"],
         "layers": result["layers"],
         "evidence": result["evidence"],
         "llm_check": llm_check,
+        "handoff": "paiya-xiaopai-douyin-video-generation" if intent == "handoff_video" and platform != "小红书" else None,
         "brief_required": bool(result["has_brief"] and not args.attachment and intent == "generate" and mode == "商单"),
         "notes": notes,
     }
@@ -290,6 +330,12 @@ def run_eval(path):
         item = json.loads(line)
         result = score(item["text"], has_attachment=item.get("attachment", False))
         predicted, _, _ = decide(item["text"], result, in_flow=item.get("in_flow", False))
+        modality, platform = detect_modality(item["text"])
+        if predicted in ("generate", "llm_check"):
+            if modality == "video":
+                predicted = "handoff_video"
+            elif modality in ("ambiguous", "unspecified"):
+                predicted = "confirm_modality"
         expected = item["expected"]
         ok = predicted == expected
         rows.append((item["text"], expected, predicted, result["score"], ok))

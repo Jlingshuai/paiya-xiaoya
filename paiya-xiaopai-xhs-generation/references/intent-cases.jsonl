@@ -4,7 +4,9 @@
 {"text": "小红书违规词有哪些", "attachment": false, "expected": "chat"}
 {"text": "帮我看看这篇笔记为什么没流量", "attachment": false, "expected": "evaluate"}
 {"text": "你好，在吗", "attachment": false, "expected": "chat"}
-{"text": "生成3个抖音视频脚本", "attachment": false, "expected": "scope_mismatch"}
+{"text": "生成3个抖音视频脚本", "attachment": false, "expected": "handoff_video"}
 {"text": "这个产品怎么在小红书上推广", "attachment": false, "expected": "chat"}
 {"text": "帮我写一篇小红书", "attachment": false, "expected": "llm_check"}
 {"text": "今天天气不错", "attachment": false, "expected": "chat"}
+{"text": "帮我写篇脚本", "attachment": false, "expected": "confirm_modality"}
+{"text": "按这个 brief 出三条口播稿", "attachment": true, "expected": "handoff_video"}

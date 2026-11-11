@@ -1,0 +1,52 @@
+{
+  "schema_version": "poc-1.0",
+  "source": "mock-video-brief.md",
+  "brand": "山栖 SHANQI",
+  "product": "冷萃咖啡液（原味）",
+  "entity_aliases": ["山栖", "SHANQI", "冷萃咖啡液", "咖啡液"],
+  "category": "食品 / 咖啡饮品",
+  "selling_points": [
+    "0 糖 0 脂，配料表干净，减脂期也能喝",
+    "单条成本 6.9 元，对比门店 30 元/杯",
+    "3 秒速溶，冷水牛奶都能兑"
+  ],
+  "selling_point_keys": [
+    ["0 糖", "0糖", "0 脂", "0脂", "0 蔗糖", "0蔗糖"],
+    ["6.9", "69 元", "69元"],
+    ["3 秒", "3秒", "速溶"]
+  ],
+  "required_points": ["0 糖 0 脂", "6.9 元/条", "3 秒速溶"],
+  "audience": "22-30 岁一二线打工人，减脂期想喝咖啡又怕热量",
+  "price": {
+    "regular": "99 元/盒",
+    "promo": "69 元/盒",
+    "period": "11.20-11.30",
+    "gift": "买 2 盒送定制玻璃杯 1 只，限量 500 份"
+  },
+  "facts": [
+    "30ml × 10 条/盒",
+    "云南日晒豆",
+    "12 小时低温冷萃",
+    "约 80mg 咖啡因/条",
+    "保质期 9 个月"
+  ],
+  "numbers_allowlist": ["30", "10", "6.9", "69", "99", "80", "12", "9", "500", "11.20", "11.30", "2", "1", "3", "0"],
+  "video": {
+    "duration_sec": 30,
+    "duration_tolerance": 2,
+    "ratio": "9:16",
+    "shots_min": 8,
+    "shots_max": 14,
+    "max_shot_sec": 5,
+    "oral_chars_per_sec": 5,
+    "hook_deadline_sec": 3,
+    "format": "竖屏短视频，报备，挂车",
+    "speaker": "红人本人出镜口播"
+  },
+  "forbidden_claims": ["减肥", "燃脂", "瘦身", "提神醒脑", "治疗", "治愈", "疗效", "增强免疫力"],
+  "content_rules": {
+    "must_include": ["0 糖 0 脂", "6.9 元/条", "3 秒速溶"],
+    "forbidden": ["绝对化用语", "功效宣称", "站外引流", "贬低竞品", "未授权的认证或检测", "未授权 BGM"]
+  },
+  "missing_fields": []
+}

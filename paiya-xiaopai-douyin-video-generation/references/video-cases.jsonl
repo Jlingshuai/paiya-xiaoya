@@ -1,0 +1,10 @@
+{"text": "帮我写个30秒抖音口播脚本，山栖咖啡液", "attachment": false, "expected": "generate"}
+{"text": "按这个 brief 出三条抖音视频脚本", "attachment": true, "expected": "generate"}
+{"text": "帮我改一下第二版第3秒到第5秒的画面", "attachment": false, "in_flow": true, "expected": "rewrite"}
+{"text": "抖音完播率怎么提升", "attachment": false, "expected": "chat"}
+{"text": "帮我看看这条视频为什么没流量", "attachment": false, "expected": "evaluate"}
+{"text": "在吗", "attachment": false, "expected": "chat"}
+{"text": "帮我写篇小红书笔记，种草这个咖啡", "attachment": false, "expected": "handoff_article"}
+{"text": "写个分镜", "attachment": false, "expected": "generate"}
+{"text": "帮我写篇脚本", "attachment": false, "expected": "confirm_modality"}
+{"text": "今天好困", "attachment": false, "expected": "chat"}

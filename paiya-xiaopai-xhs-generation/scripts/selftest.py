@@ -70,7 +70,7 @@ def main():
 
     code, out = run(["scripts/intent_score.py", "--eval", "references/intent-cases.jsonl"])
     ok = code == 0 and "准确率：100.0%" in out
-    check("意图回归 10/10", ok, out.splitlines()[0] if out else "无输出")
+    check("意图回归 12/12", ok, out.splitlines()[0] if out else "无输出")
 
     code, out = run(["scripts/fetch_context.py", "--compact"])
     check("上下文装配", code == 0 and "赛道：美食" in out, out.strip()[:70])
