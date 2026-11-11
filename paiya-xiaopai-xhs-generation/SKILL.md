@@ -145,11 +145,14 @@ python3 scripts/fetch_context.py --fail profile     # 模拟画像接口失败
 
 ```bash
 python3 scripts/qc_check.py --file <成品卡.md> --version V1    # 逐版质检（推荐）
+python3 scripts/qc_check.py --file <成品卡.md> --version V1 --daily   # 日常创作（无 brief）
 python3 scripts/qc_check.py --text "<单版正文>"                # 单段或单版文本
 python3 scripts/qc_check.py --file <文件> --brief references/mock/mock-fact-card.json
 ```
 
 **必须逐版跑**，不要拿整份成品卡一次跑：元信息里的日期、红人 ID、字数统计会被误当成事实数字。
+
+**日常创作没有 brief**，必须加 `--daily`：跳过卖点覆盖与事实对照，只跑规则层 + 结构层，否则会被误判成「核心卖点缺失」。
 
 | 层 | 查什么 | 执行方式 |
 |---|---|---|

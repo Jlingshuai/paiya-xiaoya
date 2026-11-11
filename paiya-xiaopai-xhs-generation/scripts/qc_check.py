@@ -38,7 +38,8 @@ WARN_PATTERNS = {
     # 只盯评价性用法；「最后」「最近」「最里面」属于正常词，不该报警
     "绝对化倾向": r"最(?:划算|值得|推荐|优惠|便宜|好吃|好喝|好用|好看|香|美|棒|佳|正宗|新鲜|适合)",
     "百分比断言": r"9[0-9]%|100%",
-    "时效承诺": r"\d+\s*(?:天|周|小时)|\d+\s*分钟|立刻|马上|立即",
+    # 只盯「时长 + 效果」的承诺；「5 分钟早餐」是时长描述，不是承诺
+    "时效承诺": r"\d+\s*(?:天|周)\s*(?:见效|有效|变白|变瘦|瘦|改善|治好)|(?:立刻|马上|立即)\s*(?:见效|有效|变|瘦|就不|就能)",
     "程度副词": r"超级|巨[好大小]|爆炸|绝了|无敌",
 }
 
@@ -111,7 +112,24 @@ def rule_layer(text, brief_text=""):
     return hits, warnings
 
 
-def coverage_layer(text, brief):
+def coverage_layer(text, brief, daily=False):
+    structure = {
+        "fields": {field: field in text for field in STRUCTURE_FIELDS},
+        "anchors": {anchor: anchor in text for anchor in BODY_ANCHORS},
+    }
+    structure_ok = all(structure["fields"].values()) and all(structure["anchors"].values())
+
+    if daily:
+        # 日常创作没有 brief：只校验结构，不做卖点覆盖与事实对照
+        return {
+            "mode": "daily",
+            "selling_points": {"covered": [], "missing": [], "count": 0, "total": 0, "skipped": True},
+            "numbers": {"candidates": [], "allowlist": [], "skipped": True},
+            "structure": structure,
+            "structure_ok": structure_ok,
+            "forbidden_claim_hits": [],
+        }
+
     groups = brief.get("selling_point_keys", [])
     labels = brief.get("selling_points", [])
     covered = []
@@ -160,18 +178,18 @@ def coverage_layer(text, brief):
     }
 
 
-def verdict_for(rule_hits, coverage, warn_count):
+def verdict_for(rule_hits, coverage, warn_count, daily=False):
     if rule_hits:
         return "BLOCK", "规则层命中硬阻断词"
-    if coverage["forbidden_claim_hits"]:
+    if not daily and coverage["forbidden_claim_hits"]:
         return "BLOCK", "命中 brief 禁用宣称"
     if not coverage["structure_ok"]:
         return "BLOCK", "结构不完整（缺字段或锚点）"
-    if coverage["selling_points"]["count"] <= coverage["selling_points"]["total"] - 2:
+    if not daily and coverage["selling_points"]["count"] <= coverage["selling_points"]["total"] - 2:
         return "BLOCK", "核心卖点覆盖不足"
-    if warn_count or coverage["selling_points"]["count"] == coverage["selling_points"]["total"] - 1:
+    if warn_count or (not daily and coverage["selling_points"]["count"] == coverage["selling_points"]["total"] - 1):
         return "WARN", "有需确认项"
-    return "PASS", "规则层与覆盖层均通过"
+    return "PASS", "规则层与结构层均通过" if daily else "规则层与覆盖层均通过"
 
 
 def extract_version(text, version):
@@ -191,6 +209,7 @@ def main():
     parser.add_argument("--text", help="待检文本")
     parser.add_argument("--version", help="只检指定版本（V1/V2/V3），需配合 --file")
     parser.add_argument("--brief", default=str(DEFAULT_BRIEF), help="营销事实卡 JSON")
+    parser.add_argument("--daily", action="store_true", help="日常创作：无 brief，跳过卖点覆盖与事实对照")
     args = parser.parse_args()
 
     if not args.file and not args.text:
@@ -207,9 +226,12 @@ def main():
         text = args.text
     brief = load_brief(args.brief)
 
-    rule_hits, warnings = rule_layer(text, json.dumps(brief, ensure_ascii=False))
-    coverage = coverage_layer(text, brief)
-    verdict, reason = verdict_for(rule_hits, coverage, len(warnings))
+    # 锚点编号（B1/P1/V1/T3）不是正文，替换成等长空格，避免「T3 天」拼成「3 天」
+    scan_text = re.sub(r"\b[BPVT]\d+\b", lambda m: " " * len(m.group(0)), text)
+
+    rule_hits, warnings = rule_layer(scan_text, json.dumps(brief, ensure_ascii=False))
+    coverage = coverage_layer(text, brief, daily=args.daily)
+    verdict, reason = verdict_for(rule_hits, coverage, len(warnings), daily=args.daily)
 
     result = {
         "version": args.version,
@@ -224,15 +246,22 @@ def main():
     print("\n--- 摘要 ---")
     print(f"结论：{verdict}（{reason}）")
     print(f"规则层：硬阻断 {len(rule_hits)} 处，需确认 {len(warnings)} 处")
-    print(
-        "覆盖层：卖点 {count}/{total}（缺：{missing}）；结构 {structure}；数字待核 {numbers}".format(
-            count=coverage["selling_points"]["count"],
-            total=coverage["selling_points"]["total"],
-            missing="、".join(coverage["selling_points"]["missing"]) or "无",
-            structure="完整" if coverage["structure_ok"] else "不完整",
-            numbers="、".join(coverage["numbers"]["candidates"]) or "无",
+    if args.daily:
+        print(
+            "覆盖层：日常创作，不校验 brief 卖点；结构 {structure}".format(
+                structure="完整" if coverage["structure_ok"] else "不完整"
+            )
         )
-    )
+    else:
+        print(
+            "覆盖层：卖点 {count}/{total}（缺：{missing}）；结构 {structure}；数字待核 {numbers}".format(
+                count=coverage["selling_points"]["count"],
+                total=coverage["selling_points"]["total"],
+                missing="、".join(coverage["selling_points"]["missing"]) or "无",
+                structure="完整" if coverage["structure_ok"] else "不完整",
+                numbers="、".join(coverage["numbers"]["candidates"]) or "无",
+            )
+        )
 
 
 if __name__ == "__main__":
