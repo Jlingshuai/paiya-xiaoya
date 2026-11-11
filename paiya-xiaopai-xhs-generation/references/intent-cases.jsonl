@@ -1,0 +1,10 @@
+{"text": "帮我写3篇小红书笔记，种草这个咖啡液", "attachment": false, "expected": "generate"}
+{"text": "按这个 brief 写三版小红书脚本", "attachment": true, "expected": "generate"}
+{"text": "帮我改一下第一版的标题", "attachment": false, "in_flow": true, "expected": "rewrite"}
+{"text": "小红书违规词有哪些", "attachment": false, "expected": "chat"}
+{"text": "帮我看看这篇笔记为什么没流量", "attachment": false, "expected": "evaluate"}
+{"text": "你好，在吗", "attachment": false, "expected": "chat"}
+{"text": "生成3个抖音视频脚本", "attachment": false, "expected": "scope_mismatch"}
+{"text": "这个产品怎么在小红书上推广", "attachment": false, "expected": "chat"}
+{"text": "帮我写一篇小红书", "attachment": false, "expected": "llm_check"}
+{"text": "今天天气不错", "attachment": false, "expected": "chat"}
