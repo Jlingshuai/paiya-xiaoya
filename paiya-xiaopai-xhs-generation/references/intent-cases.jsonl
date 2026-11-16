@@ -10,3 +10,4 @@
 {"text": "今天天气不错", "attachment": false, "expected": "chat"}
 {"text": "帮我写篇脚本", "attachment": false, "expected": "confirm_modality"}
 {"text": "按这个 brief 出三条口播稿", "attachment": true, "expected": "handoff_video"}
+{"text": "我想生成一个关于瑞幸咖啡的商单创作", "attachment": false, "commercial": true, "expected": "confirm_modality"}

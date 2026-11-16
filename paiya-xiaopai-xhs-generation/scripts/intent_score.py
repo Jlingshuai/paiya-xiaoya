@@ -328,7 +328,11 @@ def run_eval(path):
         if not line or line.startswith("#"):
             continue
         item = json.loads(line)
-        result = score(item["text"], has_attachment=item.get("attachment", False))
+        result = score(
+            item["text"],
+            has_attachment=item.get("attachment", False),
+            force_commercial=item.get("commercial", False),
+        )
         predicted, _, _ = decide(item["text"], result, in_flow=item.get("in_flow", False))
         modality, platform = detect_modality(item["text"])
         if predicted in ("generate", "llm_check"):

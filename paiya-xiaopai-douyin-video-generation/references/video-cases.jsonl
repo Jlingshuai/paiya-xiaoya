@@ -8,3 +8,4 @@
 {"text": "写个分镜", "attachment": false, "expected": "generate"}
 {"text": "帮我写篇脚本", "attachment": false, "expected": "confirm_modality"}
 {"text": "今天好困", "attachment": false, "expected": "chat"}
+{"text": "我想生成一个关于瑞幸咖啡的商单创作", "attachment": false, "commercial": true, "expected": "confirm_modality"}

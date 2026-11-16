@@ -70,7 +70,25 @@ def main():
 
     code, out = run(["scripts/intent_score.py", "--eval", "references/intent-cases.jsonl"])
     ok = code == 0 and "准确率：100.0%" in out
-    check("意图回归 12/12", ok, out.splitlines()[0] if out else "无输出")
+    check("意图回归 13/13", ok, out.splitlines()[0] if out else "无输出")
+
+    code, out = run([
+        "scripts/intent_score.py",
+        "--text", "我想生成一个关于瑞幸咖啡的商单创作",
+        "--commercial",
+    ])
+    try:
+        data = json.loads(out)
+        ok = (
+            code == 0
+            and data.get("intent") == "confirm_modality"
+            and data.get("modality") == "unspecified"
+        )
+        detail = f"intent={data.get('intent')}，modality={data.get('modality')}"
+    except Exception:  # noqa: BLE001
+        ok = False
+        detail = "解析失败"
+    check("形态门·商单无平台先确认", ok, detail)
 
     code, out = run(["scripts/fetch_context.py", "--compact"])
     check("上下文装配", code == 0 and "赛道：美食" in out, out.strip()[:70])

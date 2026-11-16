@@ -17,7 +17,7 @@
 |---|---|---|---|
 | ① | 流程续接 | 已在脚本链路（等补字段 / 等选版 / 改写中） | `continue` / `rewrite` |
 | ② | 显式拒绝 | 不用写 / 先不生成 / 算了 | `exit` |
-| ③ | 形态路由 | 小红书图文信号 → 反向转交；形态冲突或只有「脚本」→ 确认一次 | `handoff_article` / `confirm_modality` |
+| ③ | 形态路由 | 小红书图文信号 → 反向转交；形态冲突或原话没有任何平台／形态词（只说「商单创作」「生成一篇」「写篇脚本」）→ 先确认一次 | `handoff_article` / `confirm_modality` |
 | ④ | 评估诉求 | 诊断词且无创作动词 | `evaluate` |
 | ⑤ | 方法论提问 | 起号 / 完播 / 限流 / 投流 | `chat` |
 | ⑥ | 打分 | 以上均未命中 | 按第 3–4 节 |
@@ -41,7 +41,9 @@
 | 小红书 + 视频词 | video / 小红书 | 说明本期只覆盖抖音 |
 | 小红书 / 图文 / 笔记 | article / 小红书 | `handoff_article` |
 | 视频词 + 图文词、无平台 | ambiguous | `confirm_modality` |
-| 只有「脚本」 | unspecified | `confirm_modality` |
+| 只有「脚本」「商单创作」「生成一篇」等中性词，无平台与形态词 | unspecified | `confirm_modality` |
+
+**形态只看本轮原话**：不得根据产品品类、品牌、红人赛道、上一轮选择或会话历史推断；形态确认前不解析 brief、不装配画像、不生成分镜。
 
 **强形态例外**：出现「分镜 / 口播稿 / 视频脚本」且有创作动词时，即使没有「抖音」二字也直接触发——这些词在 MCN 语境里几乎只指视频。
 
@@ -88,9 +90,10 @@ L1 封顶 65，L2 封顶 30，总分封顶 95。
 | 8 | 写个分镜 | 43 | generate（强形态例外） |
 | 9 | 帮我写篇脚本 | 43 | confirm_modality |
 | 10 | 今天好困 | 0 | chat |
+| 11 | 我想生成一个关于瑞幸咖啡的商单创作（显式商单） | 48 | confirm_modality（先问平台，不解析 brief） |
 
 ## 6. 校准
 
-1. 改权重后先跑 `python3 scripts/intent_score.py --eval references/video-cases.jsonl`，要求 10/10。
+1. 改权重后先跑 `python3 scripts/intent_score.py --eval references/video-cases.jsonl`，要求 11/11。
 2. 新增负例优先补：方法论文、诊断文、图文请求、只提平台不提产出。
 3. 阈值调整必须同时回归图文技能，避免两边对同一句话给出相反判定。
