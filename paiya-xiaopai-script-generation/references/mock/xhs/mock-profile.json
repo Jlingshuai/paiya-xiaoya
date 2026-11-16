@@ -1,0 +1,63 @@
+{
+  "schema_version": "poc-1.0",
+  "source": "mock",
+  "endpoint": "/v1/red/profile/offline",
+  "fetched_at": "2026-11-11T10:00:00+08:00",
+  "red_id": "R-2048",
+  "nickname": "阿梨的早八食堂",
+  "track": {
+    "primary": "美食",
+    "secondary": ["咖啡茶饮", "快手早餐"],
+    "confidence": 0.92,
+    "track_keywords": ["早八", "打工人", "平价", "快手", "减脂友好"]
+  },
+  "persona": {
+    "one_liner": "替打工人试错的早八食堂，主打真实、平价、能复刻",
+    "tags": ["真实测评", "性价比", "懒人食谱", "职场日常"],
+    "tone": "像同事聊天，带一点自嘲，不端着",
+    "avoid_tone": ["专业评测腔", "品牌口播腔", "夸张惊叹体"]
+  },
+  "audience": {
+    "size": 128000,
+    "gender_split": {"female": 0.78, "male": 0.22},
+    "age_split": {"18-22": 0.14, "23-30": 0.62, "31-35": 0.19, "other": 0.05},
+    "city_tier": {"一线": 0.38, "新一线": 0.33, "二线": 0.21, "三线及以下": 0.08},
+    "core_needs": ["早上没时间", "想省钱但不想将就", "减脂期怕热量"],
+    "price_sensitivity": "高，50 元以下决策快，超过 100 元需要理由"
+  },
+  "content": {
+    "format_mix": {"图文": 0.8, "视频": 0.2},
+    "posts_per_week": 4,
+    "best_performing_structures": [
+      "痛点开场 + 3 个对比维度 + 一句结论",
+      "时间线记录（7:00 起床到 9:00 到工位）",
+      "清单体（5 个 20 元以内的早餐方案）"
+    ],
+    "avg_read_time_sec": 38,
+    "hook_preference": "具体数字 + 具体场景，如「6.9 元喝到门店品质」"
+  },
+  "performance": {
+    "avg_likes": 1850,
+    "avg_collects": 960,
+    "collect_like_ratio": 0.52,
+    "top_note": {"title": "早八人别再买 30 块的美式了", "likes": 12800, "collects": 6400}
+  },
+  "commercial_rules": {
+    "declined_categories": ["保健功效类食品", "减肥药", "金融产品"],
+    "declared_limits": ["不承诺减重数字", "不使用绝对化用语", "不引导站外交易"],
+    "brief_required": true
+  },
+  "whitelist_fields_used": [
+    "track",
+    "persona.one_liner",
+    "persona.tags",
+    "persona.tone",
+    "audience.age_split",
+    "audience.city_tier",
+    "audience.core_needs",
+    "audience.price_sensitivity",
+    "content.best_performing_structures",
+    "content.hook_preference",
+    "commercial_rules"
+  ]
+}

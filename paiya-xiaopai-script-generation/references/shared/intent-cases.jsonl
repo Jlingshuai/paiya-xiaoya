@@ -1,0 +1,23 @@
+{"text": "帮我写3篇小红书笔记，种草这个咖啡液", "attachment": false, "expected": "generate", "expected_modality": "article", "expected_branch": "article"}
+{"text": "按这个 brief 写三版小红书脚本", "attachment": true, "expected": "generate", "expected_modality": "article", "expected_branch": "article"}
+{"text": "帮我改一下第一版的标题", "attachment": false, "in_flow": true, "expected": "rewrite", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "小红书违规词有哪些", "attachment": false, "expected": "chat", "expected_modality": "article", "expected_branch": null}
+{"text": "帮我看看这篇笔记为什么没流量", "attachment": false, "expected": "evaluate", "expected_modality": "article", "expected_branch": null}
+{"text": "你好，在吗", "attachment": false, "expected": "chat", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "生成3个抖音视频脚本", "attachment": false, "expected": "generate", "expected_modality": "video", "expected_branch": "video"}
+{"text": "这个产品怎么在小红书上推广", "attachment": false, "expected": "chat", "expected_modality": "article", "expected_branch": null}
+{"text": "帮我写一篇小红书", "attachment": false, "expected": "llm_check", "expected_modality": "article", "expected_branch": "article"}
+{"text": "今天天气不错", "attachment": false, "expected": "chat", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "帮我写篇脚本", "attachment": false, "expected": "confirm_modality", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "按这个 brief 出三条口播稿", "attachment": true, "expected": "generate", "expected_modality": "video", "expected_branch": "video"}
+{"text": "我想生成一个关于瑞幸咖啡的商单创作", "attachment": false, "commercial": true, "expected": "confirm_modality", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "帮我写个30秒抖音口播脚本，山栖咖啡液", "attachment": false, "expected": "generate", "expected_modality": "video", "expected_branch": "video"}
+{"text": "按这个 brief 出三条抖音视频脚本", "attachment": true, "expected": "generate", "expected_modality": "video", "expected_branch": "video"}
+{"text": "帮我改一下第二版第3秒到第5秒的画面", "attachment": false, "in_flow": true, "expected": "rewrite", "expected_modality": "video", "expected_branch": null}
+{"text": "抖音完播率怎么提升", "attachment": false, "expected": "chat", "expected_modality": "video", "expected_branch": null}
+{"text": "帮我看看这条视频为什么没流量", "attachment": false, "expected": "evaluate", "expected_modality": "video", "expected_branch": null}
+{"text": "在吗", "attachment": false, "expected": "chat", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "帮我写篇小红书笔记，种草这个咖啡", "attachment": false, "expected": "generate", "expected_modality": "article", "expected_branch": "article"}
+{"text": "写个分镜", "attachment": false, "expected": "generate", "expected_modality": "video", "expected_branch": "video"}
+{"text": "今天好困", "attachment": false, "expected": "chat", "expected_modality": "unspecified", "expected_branch": null}
+{"text": "帮我写个抖音图文笔记", "attachment": false, "expected": "confirm_modality", "expected_modality": "ambiguous", "expected_branch": null}

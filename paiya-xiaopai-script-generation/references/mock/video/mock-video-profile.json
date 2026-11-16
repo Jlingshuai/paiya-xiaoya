@@ -1,0 +1,50 @@
+{
+  "schema_version": "poc-1.0",
+  "source": "mock",
+  "endpoint": "/v1/red/profile/offline",
+  "platform": "抖音",
+  "fetched_at": "2026-11-11T10:00:00+08:00",
+  "red_id": "R-2048-DY",
+  "nickname": "阿梨的早八食堂",
+  "track": {
+    "primary": "美食",
+    "secondary": ["咖啡茶饮", "快手早餐"],
+    "confidence": 0.9
+  },
+  "video_profile": {
+    "followers": 86000,
+    "avg_completion_rate": 0.32,
+    "avg_likes": 4200,
+    "best_performing_format": "真人口播测评（占比 60%）",
+    "second_format": "剧情演绎（占比 30%）",
+    "third_format": "沉浸式跟拍（占比 10%）",
+    "hook_preference": "前 3 秒给具体数字或直接冲突，不做铺垫",
+    "speaking_rate": "4.2 字/秒",
+    "shot_rhythm": "平均 2.5 秒一个镜头，产品特写不超过 3 秒",
+    "ending_preference": "结尾直接给价格与购买理由，不做悬念"
+  },
+  "audience": {
+    "gender_split": {"female": 0.72, "male": 0.28},
+    "age_split": {"18-22": 0.16, "23-30": 0.58, "31-35": 0.2, "other": 0.06},
+    "core_needs": ["早上没时间", "想省钱", "减脂期怕热量"],
+    "comment_topics": ["哪里买", "真的不苦吗", "一条能冲多少", "适合空腹喝吗"]
+  },
+  "persona": {
+    "one_liner": "替打工人试错的早八食堂，说话像同事，不端着",
+    "tone": "口语、短句、带一点自嘲",
+    "avoid_tone": ["广告腔", "夸张惊叹", "专业评测术语堆砌"]
+  },
+  "commercial_rules": {
+    "declined_categories": ["保健功效类食品", "减肥药", "金融产品"],
+    "declared_limits": ["不承诺减重数字", "不使用绝对化用语", "不引导站外交易"],
+    "brief_required": true
+  },
+  "whitelist_fields_used": [
+    "track",
+    "video_profile",
+    "audience.core_needs",
+    "audience.comment_topics",
+    "persona.tone",
+    "commercial_rules"
+  ]
+}
