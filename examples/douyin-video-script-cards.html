@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>抖音三版脚本卡片｜山栖冷萃咖啡液</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231c2422'/%3E%3Cpath d='M8 18h48v8H8z' fill='%23f7f7f2'/%3E%3Cpath d='M8 30h48v6H8z' fill='%23b8433a'/%3E%3Cpath d='M8 38h48v18H8z' fill='%23f7f7f2'/%3E%3Cpath d='M14 44h10v8H14zM28 44h10v8h-10zM42 44h8v8h-8z' fill='%231c2422'/%3E%3C/svg%3E">
+<style>
+:root{
+  --board:#e6e9e3;
+  --paper:#fcfcf7;
+  --ink:#1c2422;
+  --muted:#5d6a64;
+  --rule:#c8cec6;
+  --blue:#2c5d6b;
+  --red:#b8433a;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono","JetBrains Mono","Menlo",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--board);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.clapper{
+  height:12px;
+  background:repeating-linear-gradient(135deg,var(--ink) 0 14px,#f7f7f2 14px 28px);
+}
+.wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+
+/* 场记单头 */
+.sheet{padding:28px 0 18px;border-bottom:1px solid var(--rule)}
+.sheet-top{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;letter-spacing:.04em;color:var(--muted);font-family:var(--mono)}
+.sheet-top span+span{position:relative;padding-left:18px}
+.sheet-top span+span::before{content:"";position:absolute;left:0;top:50%;width:6px;height:1px;background:var(--rule)}
+h1{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(28px,6vw,46px);
+  line-height:1.18;
+  margin:14px 0 6px;
+  letter-spacing:.01em;
+}
+.subtitle{margin:0;color:var(--muted);font-size:14px;max-width:62ch}
+.sheet-facts{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}
+.fact{font-family:var(--mono);font-size:12px;border:1px solid var(--rule);padding:4px 9px;background:var(--paper)}
+.stamp{
+  font-family:var(--serif);font-size:14px;font-weight:700;color:var(--red);
+  border:2px solid var(--red);padding:3px 10px;transform:rotate(-3deg);
+  letter-spacing:.08em;margin-left:auto;
+}
+
+/* 版本导航 */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px;position:sticky;top:0;background:var(--board);z-index:20;border-bottom:1px solid transparent}
+.chip{
+  flex:0 0 auto;display:flex;gap:8px;align-items:baseline;
+  background:var(--paper);border:1px solid var(--rule);color:var(--ink);
+  padding:8px 12px;font:inherit;font-size:13px;cursor:pointer;
+}
+.chip b{font-family:var(--serif);font-size:16px}
+.chip small{color:var(--muted);font-size:11px}
+.chip[aria-current="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip[aria-current="true"] small{color:#cfd6d0}
+.chip:focus-visible,.btn:focus-visible,.close:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* 脚本卡 */
+.card{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  margin:22px 0 34px;
+  padding-left:14px;
+}
+.card::before{
+  content:"";position:absolute;inset:0 auto 0 0;width:14px;
+  background:
+    radial-gradient(circle at 7px 12px,#e6e9e3 4.5px,transparent 5px) 0 0/14px 34px repeat-y;
+  border-right:1px solid var(--rule);
+}
+.slate{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;
+  background:var(--ink);color:#fff;padding:12px 16px;
+}
+.slate .ver{font-family:var(--serif);font-size:28px;line-height:1;font-weight:700}
+.slate .form{font-size:15px;font-weight:600}
+.slate .nums{font-family:var(--mono);font-size:11px;color:#c6cfc9;margin-left:auto}
+.slate .pass{font-family:var(--mono);font-size:11px;color:#ffe9e6;border:1px solid var(--red);background:var(--red);padding:2px 8px}
+.slate .warn{background:#8a6a1f;border-color:#8a6a1f}
+
+.hook{
+  margin:0;padding:14px 16px 12px;
+  border-bottom:1px solid var(--rule);
+  font-family:var(--serif);
+  font-size:clamp(17px,2.4vw,21px);
+  line-height:1.45;
+}
+.hook b{
+  display:inline-block;font-family:var(--sans);font-size:11px;font-weight:600;
+  color:#fff;background:var(--blue);padding:1px 7px;margin-right:9px;
+  vertical-align:2px;letter-spacing:.06em;
+}
+
+.facts{display:grid;grid-template-columns:1fr;gap:0;margin:0;border-bottom:1px solid var(--rule)}
+.facts div{padding:9px 16px;border-top:1px solid var(--rule);display:grid;grid-template-columns:86px 1fr;gap:10px}
+.facts div:first-child{border-top:0}
+.facts dt{font-size:12px;color:var(--muted)}
+.facts dd{margin:0;font-size:13px}
+
+/* 分镜板 */
+.board{padding:12px 16px 4px;overflow-x:auto}
+.board-head{display:none}
+.shot{padding:12px 0;border-top:1px solid var(--rule)}
+.shot:first-of-type{border-top:0}
+.shot .top{display:flex;gap:10px;align-items:baseline;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.shot .top .sid{color:var(--ink);font-weight:700;font-size:13px}
+.cell{display:block;margin-top:6px;font-size:13px;min-width:0}
+.cell i{display:block;font-style:normal;font-size:11px;color:var(--muted);margin-bottom:1px}
+.cell.line{font-size:14px;color:var(--ink)}
+.cell.sub{color:var(--blue)}
+.cell.visual{line-height:1.5}
+.shot.is-hidden{display:none}
+
+.card-foot{padding:10px 16px 14px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{
+  font:inherit;font-size:12px;background:transparent;border:1px solid var(--rule);
+  color:var(--ink);padding:7px 12px;cursor:pointer;min-height:40px;
+}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn.primary{border-color:var(--ink);background:var(--ink);color:#fff}
+details{font-size:12px;color:var(--muted);border:1px solid var(--rule);padding:0 10px;min-height:40px;display:inline-flex;align-items:center}
+details[open]{display:block;flex-basis:100%;padding:6px 12px 10px}
+details summary{cursor:pointer;line-height:38px}
+details p,details ul{margin:6px 0 0;font-size:12px;color:var(--ink)}
+details li{margin:2px 0}
+
+/* 对比 */
+.compare{position:fixed;right:16px;bottom:16px;z-index:30;box-shadow:0 4px 0 rgba(28,36,34,.18)}
+.modal{border:1px solid var(--ink);background:var(--paper);padding:0;width:min(760px,calc(100% - 28px))}
+.modal::backdrop{background:rgba(28,36,34,.5)}
+.modal-head{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--ink);color:#fff}
+.modal-head strong{font-family:var(--serif);font-size:18px}
+.close{margin-left:auto;background:transparent;border:0;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:2px 8px}
+.modal-body{padding:12px 16px 18px;overflow-x:auto}
+.modal table{border-collapse:collapse;width:100%;min-width:620px;font-size:12px}
+.modal th,.modal td{border-bottom:1px solid var(--rule);padding:8px 6px;text-align:left;vertical-align:top}
+.modal th{font-weight:600;color:var(--muted);white-space:nowrap}
+.modal td:first-child{font-family:var(--mono)}
+
+/* 页脚 */
+.foot{padding:6px 0 50px;color:var(--muted);font-size:12px;border-top:1px solid var(--rule)}
+.foot p{margin:10px 0 0;max-width:75ch}
+
+#toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);
+  background:var(--ink);color:#fff;font-size:13px;padding:9px 16px;
+  opacity:0;pointer-events:none;transition:.18s ease;z-index:40;
+}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (min-width:880px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts div:nth-child(2){border-top:0}
+  .facts div:nth-child(odd){border-right:1px solid var(--rule)}
+  .board{padding-bottom:8px}
+  .board-head,.shot{
+    display:grid;
+    grid-template-columns:52px 76px 52px 54px minmax(150px,1.35fr) minmax(140px,1.15fr) minmax(110px,.95fr) minmax(96px,.85fr) 52px;
+    gap:0 12px;align-items:start;
+  }
+  .board-head{display:grid;font-size:11px;color:var(--muted);padding:4px 0 8px;border-bottom:1px solid var(--ink)}
+  .shot .top{display:none}
+  .cell{margin:0;padding:10px 0;font-size:12.5px;line-height:1.5}
+  .cell i{display:none}
+  .cell.sid{font-family:var(--mono);font-weight:700;font-size:12px}
+  .cell.tc,.cell.dur,.cell.size{font-family:var(--mono);white-space:nowrap}
+  .cell.line{font-size:13px}
+  .shot.is-hidden{display:none}
+  .card{padding-left:18px}
+  .card::before{width:18px;background:radial-gradient(circle at 9px 12px,#e6e9e3 4.5px,transparent 5px) 0 0/18px 34px repeat-y}
+  .compare{right:26px;bottom:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  #toast{transition:none}
+}
+@media print{
+  body{background:#fff}
+  .chips,.compare,.card-foot,.modal{display:none}
+  .card{break-inside:avoid-page;margin:0 0 20px}
+}
+</style>
+</head>
+<body>
+<div class="clapper" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header class="sheet">
+    <div class="sheet-top">
+      <span>派芽 · 小派 POC</span>
+      <span>红人 R-2048-DY 阿梨的早八食堂</span>
+      <span>商单 · 报备 + 挂车</span>
+      <span>2026-11-11</span>
+    </div>
+    <h1>山栖冷萃咖啡液<br>抖音 30 秒 · 三版分镜</h1>
+    <p class="subtitle">同一份 brief 的三种拍法：口播测评、剧情演绎、沉浸式跟拍。每张卡可直接交给拍摄，分镜可展开，质检结论随卡附。</p>
+    <div class="sheet-facts">
+      <span class="fact">30s</span>
+      <span class="fact">9:16 竖屏</span>
+      <span class="fact">3 版</span>
+      <span class="fact">卖点 3/3</span>
+      <span class="fact">质检 3 PASS</span>
+      <span class="stamp">PASS 3/3</span>
+    </div>
+  </header>
+
+  <nav class="chips" aria-label="版本导航">
+    <button class="chip" data-go="v1" aria-current="true"><b>V1</b> 口播测评 <small>投流</small></button>
+    <button class="chip" data-go="v2"><b>V2</b> 剧情演绎 <small>自然流</small></button>
+    <button class="chip" data-go="v3"><b>V3</b> 沉浸式 <small>品牌向</small></button>
+  </nav>
+
+  <main>
+    <!-- ===== V1 ===== -->
+    <article class="card" id="v1" data-version="V1">
+      <div class="slate">
+        <span class="ver">V1</span>
+        <span class="form">口播测评</span>
+        <span class="nums">30s / 9 镜 / 口播 86 字</span>
+        <span class="pass">PASS</span>
+      </div>
+      <p class="hook"><b>前 3 秒</b>一条6.9，我囤了三盒。</p>
+      <dl class="facts">
+        <div><dt>定位</dt><dd>给早八打工人算一笔咖啡账，用单条成本对比门店，适合投流。</dd></div>
+        <div><dt>主推卖点</dt><dd>单条 6.9 元</dd></div>
+        <div><dt>结尾</dt><dd>直接报价格 + 产品名</dd></div>
+        <div><dt>钩子类型</dt><dd>数字型</dd></div>
+      </dl>
+
+      <div class="board" data-board="v1">
+        <div class="board-head" aria-hidden="true">
+          <span>镜号</span><span>时间</span><span>时长</span><span>景别</span><span>画面</span><span>台词 / 口播</span><span>字幕</span><span>音效 / BGM</span><span>转场</span>
+        </div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S1</span><span class="cell tc"><i>时间</i>0-3s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨坐在工位，手举一条咖啡液怼向镜头</span><span class="cell line"><i>台词</i>一条6.9，我囤了三盒。</span><span class="cell sub"><i>字幕</i>6.9元/条</span><span class="cell audio"><i>音效</i>轻快电子前奏</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S2</span><span class="cell tc"><i>时间</i>3-6s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>撕开包装，咖啡液倒进装满冰块的玻璃杯</span><span class="cell line"><i>台词</i>门店一杯30，这个一条6.9。</span><span class="cell sub"><i>字幕</i>门店30 vs 6.9</span><span class="cell audio"><i>音效</i>冰块碰撞声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S3</span><span class="cell tc"><i>时间</i>6-9s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>工位桌面，闹钟显示7:40，阿梨抓起包又坐下</span><span class="cell line"><i>台词</i>早八来不及，撕开就能喝。</span><span class="cell sub"><i>字幕</i>7:40 出门失败</span><span class="cell audio"><i>音效</i>环境办公声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S4</span><span class="cell tc"><i>时间</i>9-12s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>咖啡液入水，杯壁出现旋涡，字幕计时</span><span class="cell line"><i>台词</i>3秒化开，不用等。</span><span class="cell sub"><i>字幕</i>3秒</span><span class="cell audio"><i>音效</i>倒水声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S5</span><span class="cell tc"><i>时间</i>12-16s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨喝一口，点头，把盒子转到配料表一面</span><span class="cell line"><i>台词</i>0糖0脂，配料表就咖啡豆和水。</span><span class="cell sub"><i>字幕</i>配料表：咖啡豆、水</span><span class="cell audio"><i>音效</i>吞咽声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S6</span><span class="cell tc"><i>时间</i>16-20s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>盒子与价签并排，手指点在活动价上</span><span class="cell line"><i>台词</i>一盒10条，活动69。</span><span class="cell sub"><i>字幕</i>69元/盒 10条</span><span class="cell audio"><i>音效</i>收银提示音</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S7</span><span class="cell tc"><i>时间</i>20-24s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>拉开办公桌抽屉，里面整齐码着两盒</span><span class="cell line"><i>台词</i>办公室囤一盒，一天一条。</span><span class="cell sub"><i>字幕</i>一天一条</span><span class="cell audio"><i>音效</i>抽屉滑轨声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S8</span><span class="cell tc"><i>时间</i>24-27s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨举杯对镜头，背景是外卖袋</span><span class="cell line"><i>台词</i>比外卖省二十多。</span><span class="cell sub"><i>字幕</i>省二十多</span><span class="cell audio"><i>音效</i>轻快鼓点</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S9</span><span class="cell tc"><i>时间</i>27-30s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>产品摆在键盘旁，手指敲下最后一行字</span><span class="cell line"><i>台词</i>山栖咖啡液，69一盒。</span><span class="cell sub"><i>字幕</i>山栖 69元/盒</span><span class="cell audio"><i>音效</i>键盘声收尾</span><span class="cell trans"><i>转场</i>淡出</span></div>
+      </div>
+
+      <div class="card-foot">
+        <button class="btn primary" data-toggle="v1">展开全部 9 镜</button>
+        <button class="btn" data-copy="v1">复制口播</button>
+        <details><summary>拍摄清单</summary><p>工位场景（桌、键盘、抽屉）、玻璃杯、冰块、咖啡液 3 条、外卖袋 1 个；自然光 + 桌面补光；阿梨本人出镜。</p></details>
+        <details><summary>事实引用</summary><p>6.9 元/条（69÷10）、门店 30 元、0 糖 0 脂、配料表仅咖啡豆和水、10 条/盒、活动 69 元。</p></details>
+        <details><summary>质检明细</summary><ul><li>结构：9 列完整，时间码 0–30s 连续，最长 4s，口播 86 字（上限 150）</li><li>规则：功效词、绝对化、站外引流 0 命中</li><li>覆盖：卖点 3/3，画面证明 2 处，结尾 S9 含产品与价格</li></ul></details>
+      </div>
+    </article>
+
+    <!-- ===== V2 ===== -->
+    <article class="card" id="v2" data-version="V2">
+      <div class="slate">
+        <span class="ver">V2</span>
+        <span class="form">剧情演绎</span>
+        <span class="nums">30s / 9 镜 / 口播 58 字</span>
+        <span class="pass">PASS</span>
+      </div>
+      <p class="hook"><b>前 3 秒</b>你又点外卖？这杯30吧。</p>
+      <dl class="facts">
+        <div><dt>定位</dt><dd>同事误会我点外卖，用第三方反应证明性价比，适合自然流。</dd></div>
+        <div><dt>主推卖点</dt><dd>0 糖 0 脂，配料表干净</dd></div>
+        <div><dt>结尾</dt><dd>同事要链接，价格字幕收</dd></div>
+        <div><dt>钩子类型</dt><dd>冲突型</dd></div>
+      </dl>
+
+      <div class="board" data-board="v2">
+        <div class="board-head" aria-hidden="true">
+          <span>镜号</span><span>时间</span><span>时长</span><span>景别</span><span>画面</span><span>台词 / 口播</span><span>字幕</span><span>音效 / BGM</span><span>转场</span>
+        </div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S1</span><span class="cell tc"><i>时间</i>0-3s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>同事端着外卖咖啡凑到阿梨工位旁</span><span class="cell line"><i>台词</i>你又点外卖？这杯30吧。</span><span class="cell sub"><i>字幕</i>同事：又点外卖？</span><span class="cell audio"><i>音效</i>办公室嘈杂</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S2</span><span class="cell tc"><i>时间</i>3-6s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨摇头，拉开抽屉抽出一条咖啡液</span><span class="cell line"><i>台词</i>6.9。</span><span class="cell sub"><i>字幕</i>6.9元/条</span><span class="cell audio"><i>音效</i>抽屉声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S3</span><span class="cell tc"><i>时间</i>6-10s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>撕开包装，倒进玻璃杯，动作一气呵成</span><span class="cell line"><i>台词</i>一条6.9，一盒10条。</span><span class="cell sub"><i>字幕</i>10条/盒</span><span class="cell audio"><i>音效</i>撕包装声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S4</span><span class="cell tc"><i>时间</i>10-13s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>冷水注入，咖啡液3秒散开</span><span class="cell line"><i>台词</i>3秒，冷水就行。</span><span class="cell sub"><i>字幕</i>3秒速溶</span><span class="cell audio"><i>音效</i>倒水声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S5</span><span class="cell tc"><i>时间</i>13-17s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>同事接过杯子喝一口，皱眉又喝第二口</span><span class="cell line"><i>台词</i>真不苦？</span><span class="cell sub"><i>字幕</i>同事：真不苦？</span><span class="cell audio"><i>音效</i>吞咽声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S6</span><span class="cell tc"><i>时间</i>17-20s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨把盒子转过来，指配料表</span><span class="cell line"><i>台词</i>0糖0脂，就咖啡豆和水。</span><span class="cell sub"><i>字幕</i>配料表干净</span><span class="cell audio"><i>音效</i>轻快鼓点</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S7</span><span class="cell tc"><i>时间</i>20-24s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>牛奶沿杯壁倒入，出现分层</span><span class="cell line"><i>台词</i>兑牛奶也行。</span><span class="cell sub"><i>字幕</i>冷热都能兑</span><span class="cell audio"><i>音效</i>倒奶声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S8</span><span class="cell tc"><i>时间</i>24-27s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>同事掏出手机递到阿梨面前</span><span class="cell line"><i>台词</i>链接发我。</span><span class="cell sub"><i>字幕</i>同事：链接发我</span><span class="cell audio"><i>音效</i>消息提示音</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S9</span><span class="cell tc"><i>时间</i>27-30s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>产品与活动信息摆在桌上，阿梨比了个手势</span><span class="cell line"><i>台词</i>69一盒，买两盒送杯。</span><span class="cell sub"><i>字幕</i>山栖 69元/盒</span><span class="cell audio"><i>音效</i>收尾鼓点</span><span class="cell trans"><i>转场</i>淡出</span></div>
+      </div>
+
+      <div class="card-foot">
+        <button class="btn primary" data-toggle="v2">展开全部 9 镜</button>
+        <button class="btn" data-copy="v2">复制口播</button>
+        <details><summary>拍摄清单</summary><p>办公室场景（两个工位）、外卖纸杯、玻璃杯、牛奶、咖啡液 2 条；同事 1 名（可团队客串）；手持跟拍为主。</p></details>
+        <details><summary>事实引用</summary><p>6.9 元/条、门店 30 元、10 条/盒、3 秒速溶、0 糖 0 脂、配料表仅咖啡豆和水、69 元/盒、买 2 送杯。</p></details>
+        <details><summary>质检明细</summary><ul><li>结构：9 列完整，时间码 0–30s 连续，最长 4s，口播 58 字（上限 150）</li><li>规则：功效词、绝对化、站外引流 0 命中</li><li>覆盖：卖点 3/3，画面证明 2 处，结尾 S9 含产品与价格</li></ul></details>
+      </div>
+    </article>
+
+    <!-- ===== V3 ===== -->
+    <article class="card" id="v3" data-version="V3">
+      <div class="slate">
+        <span class="ver">V3</span>
+        <span class="form">沉浸式跟拍</span>
+        <span class="nums">30s / 10 镜 / 口播 4 字</span>
+        <span class="pass">PASS</span>
+      </div>
+      <p class="hook"><b>前 3 秒</b>冰块落杯，清脆一声，手指入镜撕开一条。</p>
+      <dl class="facts">
+        <div><dt>定位</dt><dd>不开口，用动作和环境声展示「3 秒做一杯」，适合品牌向与完播。</dd></div>
+        <div><dt>主推卖点</dt><dd>3 秒速溶，冷水牛奶都能兑</dd></div>
+        <div><dt>结尾</dt><dd>画面收尾，价格压字幕</dd></div>
+        <div><dt>钩子类型</dt><dd>动作 / 声音型</dd></div>
+      </dl>
+
+      <div class="board" data-board="v3">
+        <div class="board-head" aria-hidden="true">
+          <span>镜号</span><span>时间</span><span>时长</span><span>景别</span><span>画面</span><span>台词 / 口播</span><span>字幕</span><span>音效 / BGM</span><span>转场</span>
+        </div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S1</span><span class="cell tc"><i>时间</i>0-2s</span><span class="cell dur"><i>时长</i>2s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>冰块落进玻璃杯，杯壁起雾</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>先放冰</span><span class="cell audio"><i>音效</i>冰块清脆撞击</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S2</span><span class="cell tc"><i>时间</i>2-5s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>手指撕开一条咖啡液，液面贴近杯口</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>一条</span><span class="cell audio"><i>音效</i>撕包装声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot"><span class="cell sid"><i>镜号</i>S3</span><span class="cell tc"><i>时间</i>5-8s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>咖啡液倒入冰水，颜色迅速扩散</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>3秒</span><span class="cell audio"><i>音效</i>倒液声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S4</span><span class="cell tc"><i>时间</i>8-11s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>杯内旋涡，冰块碰撞杯壁</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>不用搅</span><span class="cell audio"><i>音效</i>冰块碰撞</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S5</span><span class="cell tc"><i>时间</i>11-14s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>牛奶沿杯壁倒入，出现分层</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>兑牛奶</span><span class="cell audio"><i>音效</i>倒奶声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S6</span><span class="cell tc"><i>时间</i>14-17s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>阿梨端起杯子离开厨房，走到书桌</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>带去工位</span><span class="cell audio"><i>音效</i>脚步声</span><span class="cell trans"><i>转场</i>甩镜</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S7</span><span class="cell tc"><i>时间</i>17-20s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>杯子放在键盘旁，手指继续打字</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>早八续命</span><span class="cell audio"><i>音效</i>键盘声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S8</span><span class="cell tc"><i>时间</i>20-23s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>近景</span><span class="cell visual"><i>画面</i>阿梨喝一口，视线回到屏幕</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>不苦</span><span class="cell audio"><i>音效</i>吞咽声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S9</span><span class="cell tc"><i>时间</i>23-26s</span><span class="cell dur"><i>时长</i>3s</span><span class="cell size"><i>景别</i>特写</span><span class="cell visual"><i>画面</i>拉开抽屉，盒子里整齐码着咖啡液</span><span class="cell line"><i>台词</i>—</span><span class="cell sub"><i>字幕</i>0糖0脂 10条/盒</span><span class="cell audio"><i>音效</i>抽屉声</span><span class="cell trans"><i>转场</i>硬切</span></div>
+        <div class="shot is-hidden"><span class="cell sid"><i>镜号</i>S10</span><span class="cell tc"><i>时间</i>26-30s</span><span class="cell dur"><i>时长</i>4s</span><span class="cell size"><i>景别</i>中景</span><span class="cell visual"><i>画面</i>产品与杯子并排摆在桌上，光线扫过包装</span><span class="cell line"><i>台词</i>一条6.9。</span><span class="cell sub"><i>字幕</i>山栖 69元/盒 6.9元/条</span><span class="cell audio"><i>音效</i>环境音渐弱</span><span class="cell trans"><i>转场</i>淡出</span></div>
+      </div>
+
+      <div class="card-foot">
+        <button class="btn primary" data-toggle="v3">展开全部 10 镜</button>
+        <button class="btn" data-copy="v3">复制口播 / 字幕</button>
+        <details><summary>拍摄清单</summary><p>厨房台面、玻璃杯、冰块、牛奶、咖啡液 3 条、书桌与键盘；侧逆光拍液体，60fps 便于慢放。</p></details>
+        <details><summary>事实引用</summary><p>3 秒速溶、0 糖 0 脂、10 条/盒、69 元/盒、6.9 元/条。</p></details>
+        <details><summary>质检明细</summary><ul><li>结构：9 列完整，时间码 0–30s 连续，最长 4s，口播 4 字（上限 150）</li><li>规则：功效词、绝对化、站外引流 0 命中</li><li>覆盖：卖点 3/3，画面证明 2 处，结尾 S10 含产品与价格</li></ul></details>
+      </div>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <p>数据来源：brief、红人画像、赛道热点均为 POC MOCK；数字来自 brief 或可复算。分镜可直接交拍摄，改写时按镜号或秒数定位。</p>
+  </footer>
+</div>
+
+<button class="btn primary compare" data-compare>对比三版</button>
+
+<dialog class="modal" id="compareModal">
+  <div class="modal-head"><strong>三版差异对照</strong><button class="close" data-close aria-label="关闭">×</button></div>
+  <div class="modal-body">
+    <table>
+      <thead><tr><th>版本</th><th>叙事形式</th><th>前 3 秒</th><th>口播</th><th>主推卖点</th><th>结尾</th><th>适用</th></tr></thead>
+      <tbody>
+        <tr><td>V1</td><td>口播测评</td><td>数字：「一条6.9，我囤了三盒」</td><td>86 字 / 约 70%</td><td>单条 6.9 元</td><td>直接报价格 + 产品名</td><td>投流、转化</td></tr>
+        <tr><td>V2</td><td>剧情演绎</td><td>冲突：「你又点外卖？这杯30吧」</td><td>58 字 / 约 46%</td><td>0 糖 0 脂</td><td>同事要链接，价格字幕收</td><td>自然流、互动</td></tr>
+        <tr><td>V3</td><td>沉浸式跟拍</td><td>动作/声音：冰块落杯 + 撕包装</td><td>4 字 / 约 3%</td><td>3 秒速溶</td><td>画面收尾，价格压字幕</td><td>品牌向、完播</td></tr>
+      </tbody>
+    </table>
+  </div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const VERSION_TEXT = {
+  v1: [
+    "一条6.9，我囤了三盒。","门店一杯30，这个一条6.9。","早八来不及，撕开就能喝。","3秒化开，不用等。",
+    "0糖0脂，配料表就咖啡豆和水。","一盒10条，活动69。","办公室囤一盒，一天一条。","比外卖省二十多。","山栖咖啡液，69一盒。"
+  ],
+  v2: [
+    "你又点外卖？这杯30吧。","6.9。","一条6.9，一盒10条。","3秒，冷水就行。","真不苦？",
+    "0糖0脂，就咖啡豆和水。","兑牛奶也行。","链接发我。","69一盒，买两盒送杯。"
+  ],
+  v3: [
+    "先放冰","一条","3秒","不用搅","兑牛奶","带去工位","早八续命","不苦","0糖0脂 10条/盒","一条6.9。山栖 69元/盒 6.9元/条"
+  ]
+};
+
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function toast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toastEl.classList.remove('on'), 1600);
+}
+
+document.querySelectorAll('[data-toggle]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const card = document.getElementById(btn.dataset.toggle);
+    const hidden = card.querySelectorAll('.shot.is-hidden');
+    const all = card.querySelectorAll('.shot');
+    if(hidden.length){
+      hidden.forEach(s=>s.classList.remove('is-hidden'));
+      btn.textContent = '收起分镜';
+      toast('已展开全部 ' + all.length + ' 镜');
+    }else{
+      all.forEach((s,i)=>{ if(i>=3) s.classList.add('is-hidden'); });
+      btn.textContent = '展开全部 ' + all.length + ' 镜';
+      toast('已收起分镜');
+    }
+  });
+});
+
+document.querySelectorAll('[data-copy]').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const text = VERSION_TEXT[btn.dataset.copy].filter(Boolean).join('\n');
+    try{
+      await navigator.clipboard.writeText(text);
+      toast('已复制 ' + btn.dataset.copy.toUpperCase() + ' 的口播 / 字幕');
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      toast('已复制到剪贴板');
+    }
+  });
+});
+
+document.querySelectorAll('[data-go]').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current','false'));
+    chip.setAttribute('aria-current','true');
+    document.getElementById(chip.dataset.go).scrollIntoView({block:'start'});
+  });
+});
+
+const modal = document.getElementById('compareModal');
+document.querySelector('[data-compare]').addEventListener('click', ()=>modal.showModal());
+document.querySelector('[data-close]').addEventListener('click', ()=>modal.close());
+modal.addEventListener('click', e=>{ if(e.target === modal) modal.close(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && modal.open) modal.close(); });
+
+const chips = [...document.querySelectorAll('.chip')];
+const cards = [...document.querySelectorAll('.card')];
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      chips.forEach(c=>c.setAttribute('aria-current', String(c.dataset.go === entry.target.id)));
+    });
+  }, {rootMargin:'-20% 0px -65% 0px'});
+  cards.forEach(c=>io.observe(c));
+}
+</script>
+</body>
+</html>
