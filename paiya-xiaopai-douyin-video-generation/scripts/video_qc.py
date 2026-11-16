@@ -37,7 +37,7 @@ def extract_version(text, version):
     if not start:
         return None
     rest = text[start.start():]
-    end = re.search(r"\n###\s*V\d", rest[5:])
+    end = re.search(r"\n(?:###\s*V\d|##\s)", rest[5:])
     return rest if not end else rest[: end.start() + 5]
 
 
@@ -148,9 +148,24 @@ def check(block, shots, columns, brief):
 
     last_two = parsed[-2:] if len(parsed) >= 2 else parsed
     tail_text = "".join(p["line"] + p["sub"] + p["visual"] for p in last_two)
-    if not any(k in tail_text for k in ["山栖", "咖啡液"]):
-        add("BLOCK", "PRODUCT_ENDING", "最后两镜未出现产品名")
-    if not re.search(r"69|99", tail_text):
+    product_tokens = brief.get("entity_aliases") or [
+        brief.get("product", ""),
+        brief.get("brand", ""),
+    ]
+    if not any(k and k in tail_text for k in product_tokens):
+        add("BLOCK", "PRODUCT_ENDING", f"最后两镜未出现产品名（可用别名：{'、'.join(k for k in product_tokens if k)}）")
+
+    # 价格检查按 brief 配置：price_required=false 时，只要求出现价格口径说明
+    price_required = brief.get("price_required", True)
+    price_tokens = brief.get("price_tokens") or []
+    price_policy_tokens = brief.get("price_policy_tokens") or []
+    if price_required is False:
+        if price_policy_tokens and not any(k in tail_text for k in price_policy_tokens):
+            add("BLOCK", "PRICE_ENDING", f"最后两镜未出现价格口径说明（可用表述：{'、'.join(price_policy_tokens)}）")
+    elif price_tokens:
+        if not any(k in tail_text for k in price_tokens):
+            add("BLOCK", "PRICE_ENDING", f"最后两镜未出现价格信息（可用：{'、'.join(price_tokens)}）")
+    elif not re.search(r"\d", tail_text):
         add("BLOCK", "PRICE_ENDING", "最后两镜未出现价格信息")
 
     # 规则层
@@ -174,7 +189,7 @@ def check(block, shots, columns, brief):
             add("WARN", "SP_MISS", f"第 {idx} 条卖点未落地")
 
     allow = {float(n) for n in brief.get("numbers_allowlist", [])}
-    allow.add(round(69 / 10, 1))
+    allow.update(float(n) for n in brief.get("derived_numbers", []))
     tail_numbers = []
     for p in parsed:
         for cell in (p["line"], p["sub"], p["visual"]):
