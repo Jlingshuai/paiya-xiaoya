@@ -1,0 +1,314 @@
+{
+  "schema_version": "profile-dict-v2.1-poc",
+  "source": "mock",
+  "endpoint": "/v1/red/profile/offline",
+  "fetched_at": "2026-11-26T09:00:00+08:00",
+  "resource_id": 1001,
+  "platform": "xhs",
+  "account_nickname": "阿梨的早八食堂",
+  "self_pitch": "替打工人试错的早八食堂｜平价快手实测",
+  "categories": [
+    {
+      "l1": "美食",
+      "l2": "美食教程"
+    },
+    {
+      "l1": "美食",
+      "l2": "美食测评"
+    },
+    {
+      "l1": "美食",
+      "l2": "美食探店"
+    }
+  ],
+  "fans_num": 128000,
+  "article": {
+    "topic_pillars": [
+      {
+        "pillar": "快手早餐",
+        "weight": 0.4
+      },
+      {
+        "pillar": "平价咖啡测评",
+        "weight": 0.35
+      },
+      {
+        "pillar": "打工人省钱",
+        "weight": 0.25
+      }
+    ],
+    "content_topics": [
+      {
+        "topic": "便利店早餐",
+        "pct": 0.3
+      },
+      {
+        "topic": "咖啡液/胶囊",
+        "pct": 0.28
+      },
+      {
+        "topic": "5 分钟早餐",
+        "pct": 0.22
+      },
+      {
+        "topic": "办公室零食",
+        "pct": 0.12
+      },
+      {
+        "topic": "露营快手餐",
+        "pct": 0.08
+      }
+    ],
+    "series_structures": [
+      {
+        "series": "便利店早餐周报",
+        "frequency": "每周",
+        "structure": "报店名→价格实拍→试吃打分→复购结论",
+        "episodes": 34
+      }
+    ],
+    "cover_habits": {
+      "dist": {
+        "大字报": 0.5,
+        "成品特写": 0.3,
+        "真人表情": 0.2
+      },
+      "cover_texts": [
+        "6.9 元一顿",
+        "别再买 30 块的"
+      ]
+    },
+    "style_evolution": {
+      "current_dominant": "算账测评流",
+      "drift": {
+        "hook": {
+          "算账开场": 0.6,
+          "沉浸式做饭": -0.3
+        },
+        "structure": "清单合集→单点算账测评"
+      },
+      "transition_note": "从清单合集转向单点算账，封面仍保留大字报"
+    },
+    "flop_topics": [
+      {
+        "topic": "探店",
+        "fail_count": 3,
+        "avg_effect": "8k 阅读",
+        "vs_baseline": 0.18
+      },
+      {
+        "topic": "露营装备",
+        "fail_count": 2,
+        "avg_effect": "1.1w 阅读",
+        "vs_baseline": 0.32
+      }
+    ],
+    "audience_questions": [
+      {
+        "question": "一盒能喝多久",
+        "count": 42,
+        "comment_ids": [
+          "c_101",
+          "c_108"
+        ]
+      },
+      {
+        "question": "冷水真的能化开吗",
+        "count": 31,
+        "comment_ids": [
+          "c_112"
+        ]
+      },
+      {
+        "question": "有没有无糖的",
+        "count": 27,
+        "comment_ids": [
+          "c_121",
+          "c_133"
+        ]
+      },
+      {
+        "question": "适合空腹喝吗",
+        "count": 19,
+        "comment_ids": [
+          "c_140"
+        ]
+      }
+    ],
+    "note_style": {
+      "title_formulas": {
+        "数字型": 0.45,
+        "悬念型": 0.3,
+        "对比型": 0.25
+      },
+      "title_samples": [
+        "6.9 元喝出手冲味",
+        "早八人别再买 30 块的美式"
+      ],
+      "body_structure": "开头钩子→分点正文→结尾互动",
+      "emoji_density": "每段 1 个",
+      "hashtags": [
+        "#早八食堂",
+        "#打工人早餐",
+        "#咖啡液测评",
+        "#快手早餐"
+      ]
+    },
+    "image_style": {
+      "dist": {
+        "成品特写": 0.45,
+        "步骤拼图": 0.35,
+        "真人出镜": 0.2
+      },
+      "brightness": "明亮",
+      "props": "白底 + 木纹桌面 + 通勤包"
+    },
+    "promo_style": "soft_integrate"
+  },
+  "common": {
+    "audience_profile": {
+      "gender": {
+        "female": 0.78,
+        "male": 0.22
+      },
+      "age": [
+        {
+          "tier": "18-23",
+          "pct": 0.18
+        },
+        {
+          "tier": "24-30",
+          "pct": 0.57
+        },
+        {
+          "tier": "31-35",
+          "pct": 0.2
+        },
+        {
+          "tier": "36-45",
+          "pct": 0.05
+        }
+      ],
+      "region_top": [
+        {
+          "city": "杭州",
+          "pct": 0.12
+        },
+        {
+          "city": "上海",
+          "pct": 0.1
+        },
+        {
+          "city": "北京",
+          "pct": 0.09
+        },
+        {
+          "city": "成都",
+          "pct": 0.07
+        }
+      ],
+      "interests": [
+        {
+          "name": "美食",
+          "pct": 0.34
+        },
+        {
+          "name": "职场",
+          "pct": 0.22
+        },
+        {
+          "name": "生活方式",
+          "pct": 0.18
+        },
+        {
+          "name": "家居",
+          "pct": 0.1
+        },
+        {
+          "name": "母婴",
+          "pct": 0.08
+        }
+      ],
+      "tier_version": "pgy_v1"
+    },
+    "recent_median_views": {
+      "douyin": {
+        "personal": 45000,
+        "commercial": 70000
+      },
+      "xhs": {
+        "personal_read": 12000,
+        "commercial_read": 25000
+      }
+    }
+  },
+  "expression": {
+    "tone": "像同事聊天，带一点自嘲，不端着",
+    "avoid_tone": [
+      "专业评测腔",
+      "品牌口播腔",
+      "夸张惊叹体"
+    ],
+    "on_camera": {
+      "on_camera": true,
+      "face_visible": true
+    }
+  },
+  "commercial_rules": {
+    "declined_categories": [
+      "保健功效类食品",
+      "减肥药",
+      "金融产品"
+    ],
+    "declared_limits": [
+      "不承诺减重数字",
+      "不使用绝对化用语",
+      "不引导站外交易"
+    ],
+    "brief_required": true
+  },
+  "mock_ext": {
+    "note": "POC 派生字段，不属于画像字典 27 字段；接真实接口时由内容库统计补齐",
+    "content_form_dist": {
+      "list": 0.35,
+      "review": 0.3,
+      "tutorial": 0.2,
+      "vlog": 0.15
+    },
+    "text_len_median": 380,
+    "history_angles": [
+      "cheap_alternative",
+      "comparison",
+      "tutorial",
+      "scene_test"
+    ],
+    "hook_type_mode": "conflict",
+    "pace_shape_mode": "build_up",
+    "pace_shape_seen": [
+      "build_up",
+      "even"
+    ],
+    "hook_types_seen": [
+      "conflict",
+      "number",
+      "scene_entry"
+    ]
+  },
+  "whitelist_fields_used": [
+    "self_pitch",
+    "categories",
+    "fans_num",
+    "article.topic_pillars",
+    "article.content_topics",
+    "article.series_structures",
+    "article.cover_habits",
+    "article.style_evolution",
+    "article.flop_topics",
+    "article.audience_questions",
+    "article.note_style",
+    "article.image_style",
+    "article.promo_style",
+    "common.audience_profile",
+    "common.recent_median_views"
+  ]
+}

@@ -31,8 +31,15 @@ REQUIRED = [
     "references/video/video-qc.md",
     "references/mock/xhs/mock-brief.md",
     "references/mock/xhs/mock-fact-card.json",
-    "references/mock/xhs/mock-profile.json",
-    "references/mock/xhs/mock-trends.json",
+    "references/mock/profile/mock-profile-xhs.json",
+    "references/mock/profile/mock-profile-douyin.json",
+    "references/mock/hot/mock-hot-trends.json",
+    "references/mock/skeleton/mock-skeleton-xhs.json",
+    "references/mock/skeleton/mock-skeleton-video.json",
+    "references/shared/topic-selection.md",
+    "references/shared/skeleton-matching.md",
+    "scripts/topic_pick.py",
+    "scripts/skeleton_pick.py",
     "references/mock/video/mock-video-brief.md",
     "references/mock/video/mock-video-fact-card.json",
     "references/mock/video/mock-video-profile.json",
@@ -112,7 +119,57 @@ def main():
     check("图文上下文装配", code == 0 and "赛道：美食" in out, out.strip()[:80])
 
     code, out = run(["scripts/fetch_context.py", "--branch", "video", "--compact"])
-    check("视频上下文装配", code == 0 and "平均完播：32%" in out, out.strip()[:80])
+    check("视频上下文装配", code == 0 and "语速：4.2 字/秒" in out, out.strip()[:80])
+
+    code, out = run(["scripts/topic_pick.py", "--branch", "xhs", "--seed", "2026"])
+    try:
+        pool = json.loads(out)
+        candidates = pool.get("candidates", [])
+        ok_topic = (
+            code == 0
+            and pool.get("hot_count") == 5
+            and len(candidates) == 3
+            and all(len(c["topic_line"]) <= 25 for c in candidates)
+            and all(len(c["pick_reason"]) <= 40 for c in candidates)
+        )
+    except Exception:  # noqa: BLE001
+        pool, candidates, ok_topic = {}, [], False
+    check(
+        "选题 5 选 1 出 3 条",
+        ok_topic,
+        f"热点 {pool.get('hot_count', 0)} 条，候选 {len(candidates)} 条",
+    )
+
+    if candidates:
+        cid = candidates[0]["candidate_id"]
+        code, out = run(["scripts/topic_pick.py", "--branch", "xhs", "--select", cid, "--seed", "2026"])
+        ok_select = code == 0 and cid in out
+    else:
+        ok_select = False
+    check("选题选择可复现", ok_select, cid if candidates else "无候选")
+
+    code, out = run(["scripts/skeleton_pick.py", "--branch", "xhs"])
+    try:
+        skel = json.loads(out)
+        chosen = skel.get("chosen", [])
+        ok_skel = (
+            code == 0
+            and len(chosen) == 3
+            and len({c["hook_type"] for c in chosen}) == 3
+            and len({c["content_form"] for c in chosen}) == 3
+            and all(len(c["structure"]["hard"]) == 3 for c in chosen)
+        )
+    except Exception:  # noqa: BLE001
+        chosen, ok_skel = [], False
+    check("骨架取 3 条且钩子不重复", ok_skel, f"选中 {len(chosen)} 条")
+
+    code, out = run(["scripts/skeleton_pick.py", "--branch", "video"])
+    try:
+        skel_v = json.loads(out)
+        ok_skel_v = code == 0 and len(skel_v.get("chosen", [])) == 3
+    except Exception:  # noqa: BLE001
+        ok_skel_v = False
+    check("视频骨架取 3 条", ok_skel_v, out.strip()[:80])
 
     code, out = run(["scripts/fetch_context.py", "--branch", "xhs", "--compact", "--fail", "profile"])
     check("图文画像降级", code == 0 and "未使用" in out and "降级" in out, out.strip().splitlines()[-1] if out.strip() else "无输出")

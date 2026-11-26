@@ -1,0 +1,349 @@
+{
+  "schema_version": "hot-trend-v1-poc",
+  "source": "mock",
+  "endpoint": "/v1/track/trends/offline",
+  "track": "美食",
+  "batch_id": "2026112608",
+  "mock_batch_now": "2026-11-26 10:00:00",
+  "usage_rules": {
+    "allowed": ["选题角度", "为什么现在说", "结构与节奏", "CTA 形式"],
+    "forbidden": ["原标题原句", "原文段落", "具体互动数据引用", "博主个人信息", "把热度分写进正文"],
+    "inject_only": ["hot_topic", "angle", "topic_line"]
+  },
+  "records": [
+    {
+      "hot_id": "xhs_7f3c9a12",
+      "batch_id": "2026112608",
+      "hot_topic": "打工人早餐糊弄学",
+      "plate_type": "xhs",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 48213,
+      "rank": 1,
+      "trend": "rising",
+      "saturation": 0.86,
+      "profile": {
+        "age": [
+          { "name": "19-22岁", "numRate": "17.29" },
+          { "name": "23-30岁", "numRate": "31.62" },
+          { "name": "31-40岁", "numRate": "22.4" }
+        ],
+        "gender": [
+          { "name": "女", "numRate": "85.66" },
+          { "name": "男", "numRate": "12.39" }
+        ],
+        "frequentProvince": [
+          { "name": "江苏省", "numRate": "9.54" },
+          { "name": "浙江省", "numRate": "8.2" }
+        ],
+        "twentyStrategyLabel": [
+          { "name": "舌尖盛宴", "numRate": "6.03" },
+          { "name": "家生活", "numRate": "5.98" },
+          { "name": "职场打工人", "numRate": "5.2" }
+        ]
+      }
+    },
+    {
+      "hot_id": "xhs_2b81d4e6",
+      "batch_id": "2026112608",
+      "hot_topic": "10 元内自制拿铁",
+      "plate_type": "xhs",
+      "source_type": "search_word",
+      "hot_list_type": "rising",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 31200,
+      "rank": 3,
+      "trend": "rising",
+      "saturation": 0.64,
+      "profile": {
+        "age": [
+          { "name": "19-22岁", "numRate": "12.8" },
+          { "name": "23-30岁", "numRate": "46.2" },
+          { "name": "31-40岁", "numRate": "18.4" }
+        ],
+        "gender": [
+          { "name": "女", "numRate": "78.4" },
+          { "name": "男", "numRate": "19.6" }
+        ],
+        "frequentProvince": [
+          { "name": "上海市", "numRate": "10.2" },
+          { "name": "浙江省", "numRate": "9.1" }
+        ],
+        "twentyStrategyLabel": [
+          { "name": "职场打工人", "numRate": "7.4" },
+          { "name": "舌尖盛宴", "numRate": "6.1" }
+        ]
+      }
+    },
+    {
+      "hot_id": "xhs_c93a5f07",
+      "batch_id": "2026112608",
+      "hot_topic": "冬日热饮续命",
+      "plate_type": "xhs",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "fixed",
+      "begin_time": "2026-11-20 00:00:00",
+      "end_time": "2026-12-05 23:59:59",
+      "index_value": 26840,
+      "rank": 4,
+      "trend": "peak",
+      "saturation": 0.72,
+      "profile": {
+        "age": [
+          { "name": "19-22岁", "numRate": "21.5" },
+          { "name": "23-30岁", "numRate": "38.6" },
+          { "name": "31-40岁", "numRate": "17.4" }
+        ],
+        "gender": [
+          { "name": "女", "numRate": "88.2" },
+          { "name": "男", "numRate": "9.8" }
+        ],
+        "frequentProvince": [
+          { "name": "北京市", "numRate": "11.3" },
+          { "name": "辽宁省", "numRate": "7.6" }
+        ],
+        "twentyStrategyLabel": [
+          { "name": "家生活", "numRate": "8.1" },
+          { "name": "舌尖盛宴", "numRate": "5.4" }
+        ]
+      }
+    },
+    {
+      "hot_id": "xhs_5d02a8c1",
+      "batch_id": "2026112608",
+      "hot_topic": "便利店早餐新品",
+      "plate_type": "xhs",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 19520,
+      "rank": 6,
+      "trend": "stable",
+      "saturation": 0.58,
+      "profile": {
+        "age": [
+          { "name": "19-22岁", "numRate": "25.7" },
+          { "name": "23-30岁", "numRate": "36.9" },
+          { "name": "31-40岁", "numRate": "15.2" }
+        ],
+        "gender": [
+          { "name": "女", "numRate": "71.5" },
+          { "name": "男", "numRate": "26.1" }
+        ],
+        "frequentProvince": [
+          { "name": "广东省", "numRate": "12.4" },
+          { "name": "浙江省", "numRate": "8.8" }
+        ],
+        "twentyStrategyLabel": [
+          { "name": "舌尖盛宴", "numRate": "7.9" },
+          { "name": "小城探店", "numRate": "5.7" }
+        ]
+      }
+    },
+    {
+      "hot_id": "xhs_e41b6d33",
+      "batch_id": "2026112608",
+      "hot_topic": "露营手冲咖啡",
+      "plate_type": "xhs",
+      "source_type": "topic",
+      "hot_list_type": "rising",
+      "hot_scope": "all",
+      "category": null,
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 8760,
+      "rank": 12,
+      "trend": "rising",
+      "saturation": 0.31,
+      "profile": {
+        "age": [
+          { "name": "19-22岁", "numRate": "14.2" },
+          { "name": "23-30岁", "numRate": "27.5" },
+          { "name": "31-40岁", "numRate": "33.1" }
+        ],
+        "gender": [
+          { "name": "女", "numRate": "52.4" },
+          { "name": "男", "numRate": "45.3" }
+        ],
+        "frequentProvince": [
+          { "name": "四川省", "numRate": "10.8" },
+          { "name": "云南省", "numRate": "7.2" }
+        ],
+        "twentyStrategyLabel": [
+          { "name": "户外玩家", "numRate": "9.2" },
+          { "name": "家生活", "numRate": "4.8" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_3f7a9c21",
+      "batch_id": "2026112608",
+      "hot_topic": "早八人早餐 30 秒出门",
+      "plate_type": "dy",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 52160,
+      "rank": 1,
+      "trend": "rising",
+      "saturation": 0.83,
+      "profile": {
+        "eight_labels": [
+          { "name": "美食", "numRate": "31.2" },
+          { "name": "生活服务", "numRate": "18.6" },
+          { "name": "职场", "numRate": "15.4" },
+          { "name": "家居", "numRate": "9.1" },
+          { "name": "母婴育儿", "numRate": "6.8" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_8c15e0b4",
+      "batch_id": "2026112608",
+      "hot_topic": "咖啡液平价替代",
+      "plate_type": "dy",
+      "source_type": "search_word",
+      "hot_list_type": "rising",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 33680,
+      "rank": 2,
+      "trend": "rising",
+      "saturation": 0.69,
+      "profile": {
+        "eight_labels": [
+          { "name": "美食", "numRate": "28.4" },
+          { "name": "时尚", "numRate": "16.2" },
+          { "name": "职场", "numRate": "13.7" },
+          { "name": "运动健身", "numRate": "8.9" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_8c15e0b4",
+      "batch_id": "2026112608",
+      "hot_topic": "咖啡液平价替代",
+      "plate_type": "dy",
+      "source_type": "search_word",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 21430,
+      "rank": 9,
+      "trend": "peak",
+      "saturation": 0.69,
+      "profile": {
+        "eight_labels": [
+          { "name": "美食", "numRate": "28.4" },
+          { "name": "时尚", "numRate": "16.2" },
+          { "name": "职场", "numRate": "13.7" },
+          { "name": "运动健身", "numRate": "8.9" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_a2f6d83e",
+      "batch_id": "2026112608",
+      "hot_topic": "办公室续命水",
+      "plate_type": "dy",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 28750,
+      "rank": 4,
+      "trend": "stable",
+      "saturation": 0.77,
+      "profile": {
+        "eight_labels": [
+          { "name": "职场", "numRate": "26.8" },
+          { "name": "美食", "numRate": "21.5" },
+          { "name": "生活服务", "numRate": "14.2" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_6e93b7c5",
+      "batch_id": "2026112608",
+      "hot_topic": "一人食快手午餐",
+      "plate_type": "dy",
+      "source_type": "topic",
+      "hot_list_type": "hot",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 18340,
+      "rank": 7,
+      "trend": "stable",
+      "saturation": 0.61,
+      "profile": {
+        "eight_labels": [
+          { "name": "美食", "numRate": "34.6" },
+          { "name": "家居", "numRate": "15.8" },
+          { "name": "生活方式", "numRate": "12.3" }
+        ]
+      }
+    },
+    {
+      "hot_id": "dy_0d58f2a9",
+      "batch_id": "2026112608",
+      "hot_topic": "便利店咖啡测评",
+      "plate_type": "dy",
+      "source_type": "topic",
+      "hot_list_type": "rising",
+      "hot_scope": "industry",
+      "category": "食品饮料",
+      "hot_type": "daily",
+      "begin_time": "2026-11-26 08:00:00",
+      "end_time": "2026-11-26 12:00:00",
+      "index_value": 9420,
+      "rank": 11,
+      "trend": "rising",
+      "saturation": 0.42,
+      "profile": {
+        "eight_labels": [
+          { "name": "美食", "numRate": "25.1" },
+          { "name": "生活服务", "numRate": "17.9" },
+          { "name": "职场", "numRate": "10.4" }
+        ]
+      }
+    }
+  ],
+  "saturation_warnings": [
+    "「早八人早餐」同类标题近 7 天出现 14 次，标题需换说法，禁止复用「早八人别再买」句式",
+    "咖啡液横评已饱和，若走对比测评，维度换成单次成本或配料表，不要只比口感",
+    "「同事以为我点外卖」误会式开头已滥用，视频需换冲突对象"
+  ]
+}

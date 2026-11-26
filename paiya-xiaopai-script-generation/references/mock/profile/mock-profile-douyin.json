@@ -1,0 +1,470 @@
+{
+  "schema_version": "profile-dict-v2.1-poc",
+  "source": "mock",
+  "endpoint": "/v1/red/profile/offline",
+  "fetched_at": "2026-11-26T09:00:00+08:00",
+  "resource_id": 1002,
+  "platform": "douyin",
+  "account_nickname": "阿梨的早八食堂",
+  "self_pitch": "替打工人试错的早八食堂｜平价快手实测",
+  "categories": [
+    {
+      "l1": "美食",
+      "l2": "美食教程"
+    },
+    {
+      "l1": "美食",
+      "l2": "美食测评"
+    }
+  ],
+  "fans_num": 86000,
+  "video": {
+    "persona_line": "闺蜜式早八食堂实测，替打工人先踩一遍坑",
+    "tone_words": [
+      "直给",
+      "亲切",
+      "快节奏"
+    ],
+    "speech_features": {
+      "speech_rate": 4.2,
+      "dialect": "普通话",
+      "avg_sentence_len": 8.2,
+      "mood_word_density": "medium"
+    },
+    "catchphrases": [
+      {
+        "phrase": "先算一笔账",
+        "count": 32,
+        "note_ids": [
+          "note_101",
+          "note_207"
+        ]
+      },
+      {
+        "phrase": "别眨眼",
+        "count": 24,
+        "note_ids": [
+          "note_104"
+        ]
+      },
+      {
+        "phrase": "这个真的不踩雷",
+        "count": 19,
+        "note_ids": [
+          "note_118"
+        ]
+      },
+      {
+        "phrase": "早八人懂的",
+        "count": 16,
+        "note_ids": [
+          "note_122",
+          "note_209"
+        ]
+      },
+      {
+        "phrase": "我给你试过了",
+        "count": 14,
+        "note_ids": [
+          "note_131"
+        ]
+      },
+      {
+        "phrase": "价格我放这儿",
+        "count": 12,
+        "note_ids": [
+          "note_144"
+        ]
+      },
+      {
+        "phrase": "别再当冤大头",
+        "count": 11,
+        "note_ids": [
+          "note_155"
+        ]
+      },
+      {
+        "phrase": "一口就够",
+        "count": 9,
+        "note_ids": [
+          "note_163"
+        ]
+      },
+      {
+        "phrase": "这条能处",
+        "count": 8,
+        "note_ids": [
+          "note_177"
+        ]
+      },
+      {
+        "phrase": "通勤路上",
+        "count": 7,
+        "note_ids": [
+          "note_188"
+        ]
+      }
+    ],
+    "hook_patterns": {
+      "dist": {
+        "算账开场": 0.4,
+        "翻车悬念": 0.3,
+        "提问": 0.2,
+        "时效直给": 0.1
+      },
+      "samples": [
+        {
+          "type": "算账开场",
+          "text": "一天两杯门店咖啡，一个月多少钱？",
+          "note_id": "note_201"
+        },
+        {
+          "type": "翻车悬念",
+          "text": "这个我差点翻车，先别买",
+          "note_id": "note_207"
+        },
+        {
+          "type": "提问",
+          "text": "早八人，你早餐花多少钱？",
+          "note_id": "note_212"
+        }
+      ]
+    },
+    "style_sentences": [
+      {
+        "text": "先算一笔账，再决定买不买",
+        "note_id": "note_101",
+        "ts": "00:02",
+        "scene": "算账"
+      },
+      {
+        "text": "我不是来种草的，我是来帮你省钱的",
+        "note_id": "note_118",
+        "ts": "00:06",
+        "scene": "立场"
+      },
+      {
+        "text": "别眨眼，三秒就好了",
+        "note_id": "note_104",
+        "ts": "00:04",
+        "scene": "演示"
+      },
+      {
+        "text": "早八人懂的，多睡五分钟比什么都重要",
+        "note_id": "note_122",
+        "ts": "00:08",
+        "scene": "共鸣"
+      },
+      {
+        "text": "这个价格，我先替你们试一遍",
+        "note_id": "note_131",
+        "ts": "00:03",
+        "scene": "试错"
+      },
+      {
+        "text": "链接我放这儿，先看活动期",
+        "note_id": "note_144",
+        "ts": "00:27",
+        "scene": "收尾"
+      }
+    ],
+    "expression_rules": [
+      {
+        "rule": "从不用「姐妹们」「家人们」开头",
+        "type": "禁用",
+        "check": {
+          "kind": "regex",
+          "pattern": "^(姐妹们|家人们)"
+        },
+        "evidence": "50 条语料零命中"
+      },
+      {
+        "rule": "结尾必须有可执行动作",
+        "type": "必用",
+        "check": {
+          "kind": "keyword",
+          "pattern": "评论区、想看、先收藏"
+        },
+        "evidence": "47/50 条结尾命中"
+      },
+      {
+        "rule": "每条至少一次价格口播",
+        "type": "习惯",
+        "check": {
+          "kind": "keyword",
+          "pattern": "元"
+        },
+        "evidence": "语料中 92% 视频出现价格"
+      }
+    ],
+    "on_camera": {
+      "on_camera": true,
+      "face_visible": true
+    },
+    "topic_pillars": [
+      {
+        "pillar": "快手早餐",
+        "weight": 0.4
+      },
+      {
+        "pillar": "平价咖啡测评",
+        "weight": 0.35
+      },
+      {
+        "pillar": "打工人省钱",
+        "weight": 0.25
+      }
+    ],
+    "content_topics": [
+      {
+        "topic": "咖啡液/胶囊",
+        "pct": 0.32
+      },
+      {
+        "topic": "便利店早餐",
+        "pct": 0.26
+      },
+      {
+        "topic": "5 分钟早餐",
+        "pct": 0.22
+      },
+      {
+        "topic": "办公室续命",
+        "pct": 0.12
+      },
+      {
+        "topic": "露营快手餐",
+        "pct": 0.08
+      }
+    ],
+    "series_structures": [
+      {
+        "series": "便利店早餐周报",
+        "frequency": "双周",
+        "structure": "报期数→采购实拍→热量表→试吃打分",
+        "episodes": 21
+      }
+    ],
+    "cover_habits": {
+      "dist": {
+        "大字报": 0.45,
+        "真人表情": 0.35,
+        "成品特写": 0.2
+      },
+      "cover_texts": [
+        "6.9 元一顿",
+        "别再当冤大头"
+      ]
+    },
+    "style_evolution": {
+      "current_dominant": "算账测评流",
+      "drift": {
+        "hook": {
+          "算账开场": 0.5,
+          "沉浸式做饭": -0.4
+        },
+        "structure": "剧情演绎→算账测评"
+      },
+      "transition_note": "剧情占比下降，口播测评回升"
+    },
+    "flop_topics": [
+      {
+        "topic": "探店",
+        "fail_count": 3,
+        "avg_effect": "1.2w 播放",
+        "vs_baseline": 0.21
+      },
+      {
+        "topic": "露营装备",
+        "fail_count": 2,
+        "avg_effect": "1.8w 播放",
+        "vs_baseline": 0.35
+      }
+    ],
+    "audience_questions": [
+      {
+        "question": "一盒能喝多久",
+        "count": 58,
+        "comment_ids": [
+          "c_201",
+          "c_208"
+        ]
+      },
+      {
+        "question": "冷水真的能化开吗",
+        "count": 44,
+        "comment_ids": [
+          "c_212"
+        ]
+      },
+      {
+        "question": "链接在哪",
+        "count": 39,
+        "comment_ids": [
+          "c_221"
+        ]
+      },
+      {
+        "question": "适合空腹喝吗",
+        "count": 26,
+        "comment_ids": [
+          "c_240"
+        ]
+      }
+    ],
+    "video_duration": {
+      "personal": {
+        "max": 75,
+        "min": 18,
+        "avg": 35,
+        "median": 33
+      },
+      "commercial": {
+        "max": 60,
+        "min": 25,
+        "avg": 42,
+        "median": 40
+      }
+    }
+  },
+  "common": {
+    "audience_profile": {
+      "gender": {
+        "female": 0.72,
+        "male": 0.28
+      },
+      "age": [
+        {
+          "tier": "18-23",
+          "pct": 0.16
+        },
+        {
+          "tier": "24-30",
+          "pct": 0.58
+        },
+        {
+          "tier": "31-35",
+          "pct": 0.19
+        },
+        {
+          "tier": "36-45",
+          "pct": 0.07
+        }
+      ],
+      "region_top": [
+        {
+          "city": "杭州",
+          "pct": 0.11
+        },
+        {
+          "city": "上海",
+          "pct": 0.09
+        },
+        {
+          "city": "北京",
+          "pct": 0.08
+        },
+        {
+          "city": "成都",
+          "pct": 0.07
+        }
+      ],
+      "interests": [
+        {
+          "name": "美食",
+          "pct": 0.38
+        },
+        {
+          "name": "职场",
+          "pct": 0.24
+        },
+        {
+          "name": "生活方式",
+          "pct": 0.16
+        },
+        {
+          "name": "家居",
+          "pct": 0.1
+        },
+        {
+          "name": "母婴",
+          "pct": 0.06
+        }
+      ],
+      "tier_version": "xingtu_native"
+    },
+    "recent_median_views": {
+      "douyin": {
+        "personal": 45000,
+        "commercial": 70000
+      },
+      "xhs": {
+        "personal_read": 12000,
+        "commercial_read": 25000
+      }
+    }
+  },
+  "commercial_rules": {
+    "declined_categories": [
+      "保健功效类食品",
+      "减肥药",
+      "金融产品"
+    ],
+    "declared_limits": [
+      "不承诺减重数字",
+      "不使用绝对化用语",
+      "不引导站外交易"
+    ],
+    "brief_required": true
+  },
+  "mock_ext": {
+    "note": "POC 派生字段，不属于画像字典 27 字段；接真实接口时由内容库统计补齐",
+    "content_form_dist": {
+      "review": 0.4,
+      "story": 0.3,
+      "vlog": 0.2,
+      "tutorial": 0.1
+    },
+    "text_len_median": null,
+    "history_angles": [
+      "cheap_alternative",
+      "comparison",
+      "scene_test",
+      "self_fail"
+    ],
+    "hook_type_mode": "conclusion_first",
+    "pace_shape_mode": "front_loaded",
+    "pace_shape_seen": [
+      "front_loaded",
+      "build_up"
+    ],
+    "hook_types_seen": [
+      "conclusion_first",
+      "question",
+      "scene_entry"
+    ]
+  },
+  "whitelist_fields_used": [
+    "self_pitch",
+    "categories",
+    "fans_num",
+    "video.persona_line",
+    "video.tone_words",
+    "video.speech_features",
+    "video.catchphrases",
+    "video.hook_patterns",
+    "video.style_sentences",
+    "video.expression_rules",
+    "video.on_camera",
+    "video.topic_pillars",
+    "video.content_topics",
+    "video.series_structures",
+    "video.cover_habits",
+    "video.style_evolution",
+    "video.flop_topics",
+    "video.audience_questions",
+    "video.video_duration",
+    "common.audience_profile",
+    "common.recent_median_views"
+  ]
+}

@@ -1,0 +1,438 @@
+{
+  "schema_version": "skeleton-video-v1-poc",
+  "source": "mock",
+  "endpoint": "/v1/skeleton/offline",
+  "platform": "dy",
+  "category_tree": "美食-快手早餐",
+  "note": "POC 骨架样本：字段严格按 M3 爆款骨架字段设计（视频），数值为 Mock，不代表真实榜单内容",
+  "records": [
+    {
+      "content_id": "dy_9d3f61ab",
+      "platform": "dy",
+      "publish_time": "2026-11-25 18:40:00",
+      "category": "食品-咖啡饮品",
+      "context_type": "daily",
+      "content_form": "review",
+      "source_board": "抖音·美食热门榜",
+      "source_rank": 2,
+      "batch_id": "2026112501",
+      "creator_req": {
+        "on_camera": 1,
+        "voiceover": 1,
+        "speech_rate_band": "fast",
+        "demo_hands": 1,
+        "scene_cnt": 2,
+        "cut_skill": "mid"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.0,
+          "end_sec": 6.5
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 6.5,
+          "end_sec": 12.5
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 12.5,
+          "end_sec": 19.8
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 19.8,
+          "end_sec": 26.0
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 26.0,
+          "end_sec": 30.0
+        }
+      ],
+      "hook_type": "conclusion_first",
+      "ending_type": "product_shot",
+      "hook_sync": 1,
+      "cut_rate_3s": 1.67,
+      "pace_shape": "front_loaded"
+    },
+    {
+      "content_id": "dy_2a7c4f19",
+      "platform": "dy",
+      "publish_time": "2026-11-23 19:05:00",
+      "category": "食品-咖啡饮品",
+      "context_type": "daily",
+      "content_form": "tutorial",
+      "source_board": "抖音·美食飙升榜",
+      "source_rank": 4,
+      "batch_id": "2026112302",
+      "creator_req": {
+        "on_camera": 0,
+        "voiceover": 1,
+        "speech_rate_band": "fast",
+        "demo_hands": 1,
+        "scene_cnt": 1,
+        "cut_skill": "mid"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.0,
+          "end_sec": 7.6
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 7.6,
+          "end_sec": 13.6
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 13.6,
+          "end_sec": 20.2
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 20.2,
+          "end_sec": 25.8
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 25.8,
+          "end_sec": 30.0
+        }
+      ],
+      "hook_type": "number",
+      "ending_type": "result_compare",
+      "hook_sync": 1,
+      "cut_rate_3s": 1.33,
+      "pace_shape": "front_loaded"
+    },
+    {
+      "content_id": "dy_8e41b076",
+      "platform": "dy",
+      "publish_time": "2026-11-24 20:30:00",
+      "category": "食品-早餐",
+      "context_type": "daily",
+      "content_form": "story",
+      "source_board": "抖音·美食热门榜",
+      "source_rank": 6,
+      "batch_id": "2026112401",
+      "creator_req": {
+        "on_camera": 1,
+        "voiceover": 1,
+        "speech_rate_band": "fast",
+        "demo_hands": 0,
+        "scene_cnt": 2,
+        "cut_skill": "mid"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.2
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.2,
+          "end_sec": 7.4
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 7.4,
+          "end_sec": 12.6
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 12.6,
+          "end_sec": 18.4
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 18.4,
+          "end_sec": 24.2
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 24.2,
+          "end_sec": 29.0
+        }
+      ],
+      "hook_type": "question",
+      "ending_type": "cta",
+      "hook_sync": 1,
+      "cut_rate_3s": 0.67,
+      "pace_shape": "build_up"
+    },
+    {
+      "content_id": "dy_8f52c1d3",
+      "platform": "dy",
+      "publish_time": "2026-11-21 11:20:00",
+      "category": "食品-早餐",
+      "context_type": "daily",
+      "content_form": "vlog",
+      "source_board": "抖音·美食热门榜",
+      "source_rank": 9,
+      "batch_id": "2026112101",
+      "creator_req": {
+        "on_camera": 1,
+        "voiceover": 0,
+        "speech_rate_band": "slow",
+        "demo_hands": 1,
+        "scene_cnt": 3,
+        "cut_skill": "mid"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 4.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 4.0,
+          "end_sec": 9.0
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 9.0,
+          "end_sec": 15.0
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 15.0,
+          "end_sec": 21.0
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 21.0,
+          "end_sec": 26.0
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 26.0,
+          "end_sec": 30.0
+        }
+      ],
+      "hook_type": "scene_entry",
+      "ending_type": "loop",
+      "hook_sync": 1,
+      "cut_rate_3s": 0.67,
+      "pace_shape": "even"
+    },
+    {
+      "content_id": "dy_0b64e28f",
+      "platform": "dy",
+      "publish_time": "2026-11-20 09:40:00",
+      "category": "食品-咖啡饮品",
+      "context_type": "brand",
+      "content_form": "review",
+      "source_board": "抖音·美食热门榜",
+      "source_rank": 12,
+      "batch_id": "2026112001",
+      "creator_req": {
+        "on_camera": 0,
+        "voiceover": 1,
+        "speech_rate_band": "medium",
+        "demo_hands": 1,
+        "scene_cnt": 1,
+        "cut_skill": "low"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.0,
+          "end_sec": 7.0
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 7.0,
+          "end_sec": 13.0
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 13.0,
+          "end_sec": 20.0
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 20.0,
+          "end_sec": 26.0
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 26.0,
+          "end_sec": 30.0
+        }
+      ],
+      "hook_type": "number",
+      "ending_type": "result_compare",
+      "hook_sync": 1,
+      "cut_rate_3s": 1.0,
+      "pace_shape": "build_up"
+    },
+    {
+      "content_id": "dy_1a4e7c65",
+      "platform": "dy",
+      "publish_time": "2026-11-19 16:00:00",
+      "category": "食品-早餐",
+      "context_type": "daily",
+      "content_form": "list",
+      "source_board": "抖音·美食飙升榜",
+      "source_rank": 7,
+      "batch_id": "2026111902",
+      "creator_req": {
+        "on_camera": 0,
+        "voiceover": 1,
+        "speech_rate_band": "fast",
+        "demo_hands": 1,
+        "scene_cnt": 1,
+        "cut_skill": "low"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.0,
+          "end_sec": 7.0
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 7.0,
+          "end_sec": 12.0
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 12.0,
+          "end_sec": 18.0
+        },
+        {
+          "idx": 5,
+          "role": "proof",
+          "start_sec": 18.0,
+          "end_sec": 24.0
+        },
+        {
+          "idx": 6,
+          "role": "ending",
+          "start_sec": 24.0,
+          "end_sec": 30.0
+        }
+      ],
+      "hook_type": "conclusion_first",
+      "ending_type": "list_end",
+      "hook_sync": 1,
+      "cut_rate_3s": 1.0,
+      "pace_shape": "front_loaded"
+    },
+    {
+      "content_id": "dy_5c91f0a7",
+      "platform": "dy",
+      "publish_time": "2026-11-16 15:30:00",
+      "category": "食品-早餐",
+      "context_type": "unknown",
+      "content_form": "info",
+      "source_board": "抖音·美食热门榜",
+      "source_rank": 18,
+      "batch_id": "2026111601",
+      "creator_req": {
+        "on_camera": 0,
+        "voiceover": 1,
+        "speech_rate_band": "medium",
+        "demo_hands": 0,
+        "scene_cnt": 1,
+        "cut_skill": "low"
+      },
+      "beat_roles": [
+        {
+          "idx": 1,
+          "role": "hook",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        },
+        {
+          "idx": 2,
+          "role": "pain",
+          "start_sec": 3.0,
+          "end_sec": 8.0
+        },
+        {
+          "idx": 3,
+          "role": "product_in",
+          "start_sec": 8.0,
+          "end_sec": 14.0
+        },
+        {
+          "idx": 4,
+          "role": "proof",
+          "start_sec": 14.0,
+          "end_sec": 21.0
+        },
+        {
+          "idx": 5,
+          "role": "ending",
+          "start_sec": 21.0,
+          "end_sec": 28.0
+        }
+      ],
+      "hook_type": "conflict",
+      "ending_type": "none",
+      "hook_sync": 0,
+      "cut_rate_3s": 0.67,
+      "pace_shape": "even"
+    }
+  ]
+}
