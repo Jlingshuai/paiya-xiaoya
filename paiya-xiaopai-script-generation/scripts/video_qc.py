@@ -77,6 +77,7 @@ def check(block, shots, columns, brief):
     def add(level, code, msg, shot=None):
         issues.append({"level": level, "code": code, "shot": shot, "msg": msg})
 
+    daily = brief.get("mode") == "daily"
     vcfg = brief.get("video", {})
     duration = vcfg.get("duration_sec", 30)
     tol = vcfg.get("duration_tolerance", 2)
@@ -148,18 +149,22 @@ def check(block, shots, columns, brief):
 
     last_two = parsed[-2:] if len(parsed) >= 2 else parsed
     tail_text = "".join(p["line"] + p["sub"] + p["visual"] for p in last_two)
+    if daily:
+        last_two, tail_text = [], ""
     product_tokens = brief.get("entity_aliases") or [
         brief.get("product", ""),
         brief.get("brand", ""),
     ]
-    if not any(k and k in tail_text for k in product_tokens):
+    if not daily and not any(k and k in tail_text for k in product_tokens):
         add("BLOCK", "PRODUCT_ENDING", f"最后两镜未出现产品名（可用别名：{'、'.join(k for k in product_tokens if k)}）")
 
     # 价格检查按 brief 配置：price_required=false 时，只要求出现价格口径说明
     price_required = brief.get("price_required", True)
     price_tokens = brief.get("price_tokens") or []
     price_policy_tokens = brief.get("price_policy_tokens") or []
-    if price_required is False:
+    if daily:
+        pass
+    elif price_required is False:
         if price_policy_tokens and not any(k in tail_text for k in price_policy_tokens):
             add("BLOCK", "PRICE_ENDING", f"最后两镜未出现价格口径说明（可用表述：{'、'.join(price_policy_tokens)}）")
     elif price_tokens:
@@ -182,6 +187,8 @@ def check(block, shots, columns, brief):
             add("BLOCK", "OFFSITE", f"命中站外引流「{w}」")
 
     # 覆盖层
+    if daily:
+        return issues
     groups = brief.get("selling_point_keys", [])
     covered = [any(alias in full_text for alias in g) for g in groups]
     for idx, ok in enumerate(covered, 1):
@@ -224,6 +231,7 @@ def main():
     parser.add_argument("--file", required=True, help="成品卡或脚本 Markdown")
     parser.add_argument("--version", required=True, help="V1 / V2 / V3")
     parser.add_argument("--brief", default=str(DEFAULT_BRIEF))
+    parser.add_argument("--daily", action="store_true", help="日常创作：无 brief，跳过产品/价格落地、卖点覆盖与数字对照")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
 
@@ -233,7 +241,7 @@ def main():
         print(f"未找到 {args.version} 版本块（需以 `### V1｜...` 开头）")
         raise SystemExit(1)
 
-    brief = json.loads(read_text(args.brief))
+    brief = {"mode": "daily", "video": {"duration_sec": 30}} if args.daily else json.loads(read_text(args.brief))
     shots, columns = parse_shots(block)
     issues = check(block, shots, columns, brief)
     verdict, blocks, warns = summarize(issues)

@@ -292,9 +292,10 @@ python3 scripts/xhs_qc.py --file "<成品卡.md>" --version V1 --daily
 
 ```bash
 python3 scripts/video_qc.py --file "<成品卡.md>" --version V1 --brief references/mock/video/mock-video-fact-card.json
+python3 scripts/video_qc.py --file "<成品卡.md>" --version V1 --daily
 ```
 
-**必须逐版跑**，整份跑会把版本号、时间码、元信息数字当成事实数字误报。
+**必须逐版跑**，整份跑会把版本号、时间码、元信息数字当成事实数字误报。**日常视频（无 brief）加 `--daily`**，跳过产品名 / 价格落地与卖点覆盖，只查规则层与结构层。
 
 | 层 | 图文查什么 | 视频查什么 |
 |---|---|---|
